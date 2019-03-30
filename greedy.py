@@ -1,5 +1,5 @@
 from assignment_object import Assignment
-
+from itertools import product
 def remove_assignment(A,best_assignment):
 	#removing best assignment from assignment list
 	A.remove(best_assignment)
@@ -11,3 +11,6 @@ def remove_assignment(A,best_assignment):
 
 def update_assignment(A,best_assignment):
 	pass
+
+def combinations(a,b):
+	return product(a,b)

@@ -79,31 +79,9 @@ def update_score(assignment,best_assignment) :
 	return assignment.score
 
 
-for j in range(2) :
-	for i in range(4) :
-
-		a = Assignment(time_interval =j, event = i,)
-		a.score = score(i,j,S+[a])
-		A.append(a)
-		#print()
-		#print()
 
 
 
-for i in A :
-	print("event: ",i.event, "time_interval: ",i.time_interval, "score: ", i.score)
-
-a = Assignment(1,3)
-S.append(a)
-
-
-update_assignment(A,a)
-
-print()
-print()
-
-for i in A :
-	print("event: ",i.event, "time_interval: ",i.time_interval, "score: ", i.score)
   
 
 def remove_assignment(A,best_assignment):
@@ -112,8 +90,12 @@ def remove_assignment(A,best_assignment):
 
 	#removing any clashing assignments
 	for assignment in A:
-		if (assignment.location==best_assignment.location and assignment.time_interval==best_assignment.time_interval) or assignment.name==best_assignment.name:
+
+
+		if (assignment.location==best_assignment.location and assignment.time_interval==best_assignment.time_interval) or assignment.event==best_assignment.event:
 			A.remove(assignment)
+
+
 
 
 def combinations(a,b):
@@ -122,7 +104,7 @@ def combinations(a,b):
 
 
 
-def main():
+'''def main():
 	scheduled=[]
 	events=input("Enter the no. of events to schedule: ")
 	events=events.split()
@@ -144,8 +126,31 @@ def main():
 	print("affinity probability for users over events")
 	for i in range(n):
 		for j in range(len(events)):
-			affinity[i][j]=float(input())
-	
-	
-	
+affinity[i][j]=float(input())'''
 
+
+for j in range(2) :
+	for i in range(4) :
+
+		a = Assignment(time_interval =j, event = i,)
+		a.score = score(i,j,S+[a])
+		A.append(a)
+		#print()
+		#print()
+
+for i in A :
+	print("event: ",i.event, "time_interval: ",i.time_interval, "score: ", i.score)
+
+a = A[7]
+S.append(a)
+
+remove_assignment(A,a)
+
+
+update_assignment(A,a)
+
+print()
+print()
+
+for i in A :
+	print("event: ",i.event, "time_interval: ",i.time_interval, "score: ", i.score)

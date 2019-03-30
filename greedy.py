@@ -15,3 +15,32 @@ def update_assignment(A,best_assignment):
 def combinations(a,b):
 	c=list(product(a,b))
 	return c
+
+
+
+def main():
+	scheduled=[]
+	events=input("Enter the no. of events to schedule: ")
+	events=events.split()
+	events=[int(i) for i in events]
+	candidate=input("The number of candidate events: ")
+	candidate=candidate.split()
+	candidate=[int(i) for i in candidate]
+	n=int(input("no. of time intervals"))
+	t=[]
+	for i in range(n):
+	t.append(input())
+	n=int(input("enter the number of users:"))
+	usocial=[[]*len(t)]*len(n)
+	print("social activity probability for the user at time t:")
+	for i in range(n):
+		foe j in range(len(t)):
+			usocial[i][j]=float(input())
+	affinity=[[]*len(events)]*n
+	print("affinity probability for users over events")
+	for i in range(n):
+		for j in range(len(events)):
+			affinity[i][j]=float(input())
+	
+	
+	

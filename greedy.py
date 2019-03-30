@@ -13,4 +13,5 @@ def update_assignment(A,best_assignment):
 	pass
 
 def combinations(a,b):
-	return product(a,b)
+	c=list(product(a,b))
+	return c

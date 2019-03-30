@@ -75,7 +75,19 @@ def update_assignment(A, best_assignment):
 
 def update_score(assignment,best_assignment) :
 
-	assignment.score = score(assignment.event,assignment.time_interval, S+[assignment]) - assignment.score
+	new_score = 0 
+	old_score = 0
+
+	new_S = S + [assignment]
+
+	for i in new_S :
+		new_score += score(i.event, assignment.time_interval, new_S)
+
+	for i in S :
+		old_score += score(i.event, assignment.time_interval, S)
+
+	#assignment.score = score(assignment.event,assignment.time_interval, S+[assignment]) - score(assignment.event, assignment.time_interval, S)
+	assignment.score = new_score - old_score
 	return assignment.score
 
 

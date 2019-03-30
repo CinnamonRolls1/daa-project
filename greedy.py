@@ -34,7 +34,7 @@ def main():
 	usocial=[[]*len(t)]*len(n)
 	print("social activity probability for the user at time t:")
 	for i in range(n):
-		foe j in range(len(t)):
+		for j in range(len(t)):
 			usocial[i][j]=float(input())
 	affinity=[[]*len(events)]*n
 	print("affinity probability for users over events")

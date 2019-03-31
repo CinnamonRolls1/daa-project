@@ -1,5 +1,6 @@
 from assignment_object import Assignment
 from itertools import product
+from operator import attrgetter
 
 U = ['u1','u2']
 S = []
@@ -98,14 +99,12 @@ def update_score(assignment,best_assignment) :
 
 def remove_assignment(A,best_assignment):
 	#removing best assignment from assignment list
-	A.remove(best_assignment)
+	best_assignment.valid=False
 
 	#removing any clashing assignments
 	for assignment in A:
-
-
 		if (assignment.location==best_assignment.location and assignment.time_interval==best_assignment.time_interval) or assignment.event==best_assignment.event:
-			A.remove(assignment)
+			best_assignment.valid=False
 
 
 
@@ -114,6 +113,24 @@ def combinations(a,b):
 	c=list(product(a,b))
 	return c
 
+def greedy_alg(A,k=3):
+	#A=generate_assigment()
+	
+
+	for i in range(k):
+		best_assignment=select_assignment(A)
+		print("Selection:", best_assignment.event)
+		remove_assignment(A,best_assignment)
+		update_assignment(A,best_assignment)
+
+		print("\t"+"Event"+"\t"+"Interval"+"\t"+"Location")
+		for obj in A:
+			print("\t"+str(obj.event+1)+"\t"+str(obj.time_interval+1)+"\t\t"+str(obj.location))
+
+
+
+def select_assignment(A):
+	return max(A, key=attrgetter('score'))
 
 
 '''def main():
@@ -144,25 +161,31 @@ affinity[i][j]=float(input())'''
 for j in range(2) :
 	for i in range(4) :
 
-		a = Assignment(time_interval =j, event = i,)
+		a = Assignment(time_interval =j, event = i)
 		a.score = score(i,j,S+[a])
+		
+
+		#hardcoding locations from paper
+		if i==0 or i==1:
+			a.location=1
+		elif i==2:
+			a.location=2
+		elif i==3:
+			a.location=3
+
 		A.append(a)
-		#print()
-		#print()
+
 
 for i in A :
-	print("event: ",i.event, "time_interval: ",i.time_interval, "score: ", i.score)
+	print("event: ",i.event, "time_interval: ",i.time_interval, "score: ", i.score, "location: ", i.location)
 
 a = A[7]
 S.append(a)
 
-remove_assignment(A,a)
-
-
-update_assignment(A,a)
+greedy_alg(A)
 
 print()
 print()
 
-for i in A :
-	print("event: ",i.event, "time_interval: ",i.time_interval, "score: ", i.score)
+for i in A:
+	print("event: ",i.event, "time_interval: ",i.time_interval, "score: ", i.score, "location: ", i.location)

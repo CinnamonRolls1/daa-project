@@ -1,18 +1,27 @@
+
+#-------------------IMPORTING LIBRARIES-------------
 from assignment_object import Assignment
 from itertools import product
 from operator import attrgetter
+#----------------------------------------------------
+
+#-------------------------------DATA AND GLOBAL VARIABLES---------------------------
 
 U = ['u1','u2']
 S = []
 A = []
-
-
+E = ['e1','e2','e3','e4']
+T = ['t1','t2']
+location = ['Stage 1', 'Stage 1', 'Stage 2', 'Room A']
 
 sigma = [[0.8, 0.5],[0.5, 0.7]]
 mu_E = [[0.9, 0.3, 0, 0.6],[0.2, 0.6, 0.1, 0.6]]
 mu_C = [[0.8, 0.3],[0.4, 0.7]]
 
+#-------------------------------------------------------------------------------------
 
+
+#------------------------------------SCORE CALCULATION-----------------------------------------------------------
 
 def score(event, time_interval, S) :
 
@@ -30,15 +39,15 @@ def score(event, time_interval, S) :
 
 def prob_e_t_u(event, time_interval, u, S) :
 
-	print("for user ",U[u])
+	#print("for user ",U[u])
 
 	mu_u_e = mu_E[u][event]
 
-	print("mu_u_e: ", mu_u_e)
+	#print("mu_u_e: ", mu_u_e)
 
 	sigma_u_t = sigma[u][time_interval]
 
-	print("sigma_u_t: ",sigma_u_t)
+	#print("sigma_u_t: ",sigma_u_t)
 
 	mu_u_c = 0
 	for c in range(len(mu_C[u])) :
@@ -46,7 +55,7 @@ def prob_e_t_u(event, time_interval, u, S) :
 		if c == time_interval :
 			mu_u_c += mu_C[u][c]
 
-	print("mu_u_c: ",mu_u_c)
+	#print("mu_u_c: ",mu_u_c)
 
 	mu_u_p = 0
 	for p in S :
@@ -54,25 +63,15 @@ def prob_e_t_u(event, time_interval, u, S) :
 		if p.time_interval == time_interval :
 			mu_u_p += mu_E[u][p.event]
 
-	print("mu_u_p: ",mu_u_p)
+	#print("mu_u_p: ",mu_u_p)
 
 	p = sigma_u_t * (mu_u_e / (mu_u_c + mu_u_p))
 
-	print("p: ",p)
+	#print("p: ",p)
 
-	print()
+	#print()
 
 	return p
-
-
-def update_assignment(A, best_assignment):
-	
-	for i in A :
-
-		if i.time_interval == best_assignment.time_interval :
-			i.score = update_score(i,best_assignment)
-
-
 
 def update_score(assignment,best_assignment) :
 
@@ -92,100 +91,127 @@ def update_score(assignment,best_assignment) :
 	return assignment.score
 
 
+#----------------------------------------------------------------------------------------
 
 
+
+
+#------------------------------------------------------ALGORITHM----------------------------------------------
+def update_assignment(A, best_assignment):
+	
+	for i in A :
+
+		if i.time_interval == best_assignment.time_interval :
+			i.score = update_score(i,best_assignment)
 
   
 
-def remove_assignment(A,best_assignment):
-	#removing best assignment from assignment list
-	best_assignment.valid=False
+def remove_assignment(A,best_assignment): 
+	
+	best_assignment.valid=False  #removing best assignment from assignment list
 
 	#removing any clashing assignments
+	#print("\nLooking for clashes with "+str(best_assignment.event)+" at "+str(best_assignment.location)+" during "+str(best_assignment.time_interval))
 	for assignment in A:
-		if (assignment.location==best_assignment.location and assignment.time_interval==best_assignment.time_interval) or assignment.event==best_assignment.event:
-			best_assignment.valid=False
+		#print(assignment.event,"\t",assignment.location,"\t",assignment.time_interval)
+		if ((assignment.location==best_assignment.location and assignment.time_interval==best_assignment.time_interval) or (assignment.event==best_assignment.event)):
+			assignment.valid=False
 
 
 
 
-def combinations(a,b):
-	c=list(product(a,b))
-	return c
-
-def greedy_alg(A,k=3):
-	#A=generate_assigment()
-	
-
-	for i in range(k):
-		best_assignment=select_assignment(A)
-		print("Selection:", best_assignment.event)
-		remove_assignment(A,best_assignment)
-		update_assignment(A,best_assignment)
-
-		print("\t"+"Event"+"\t"+"Interval"+"\t"+"Location")
-		for obj in A:
-			print("\t"+str(obj.event+1)+"\t"+str(obj.time_interval+1)+"\t\t"+str(obj.location))
+def generate_assigment(events,time_intervals):
 
 
+	c=list(product(events,time_intervals))
 
-def select_assignment(A):
-	return max(A, key=attrgetter('score'))
+	for i in c :
 
-
-'''def main():
-	scheduled=[]
-	events=input("Enter the no. of events to schedule: ")
-	events=events.split()
-	events=[int(i) for i in events]
-	candidate=input("The number of candidate events: ")
-	candidate=candidate.split()
-	candidate=[int(i) for i in candidate]
-	n=int(input("no. of time intervals"))
-	t=[]
-	for i in range(n):
-	t.append(input())
-	n=int(input("enter the number of users:"))
-	usocial=[[]*len(t)]*len(n)
-	print("social activity probability for the user at time t:")
-	for i in range(n):
-		for j in range(len(t)):
-			usocial[i][j]=float(input())
-	affinity=[[]*len(events)]*n
-	print("affinity probability for users over events")
-	for i in range(n):
-		for j in range(len(events)):
-affinity[i][j]=float(input())'''
-
-
-for j in range(2) :
-	for i in range(4) :
-
-		a = Assignment(time_interval =j, event = i)
-		a.score = score(i,j,S+[a])
-		
-
-		#hardcoding locations from paper
-		if i==0 or i==1:
-			a.location=1
-		elif i==2:
-			a.location=2
-		elif i==3:
-			a.location=3
-
+		a = Assignment(i[1],i[0], location= location[i[0]])
 		A.append(a)
 
 
-for i in A :
-	print("event: ",i.event, "time_interval: ",i.time_interval, "score: ", i.score, "location: ", i.location)
+def greedy_alg(k=3):
 
-a = A[7]
-S.append(a)
 
-greedy_alg(A)
+	generate_assigment(list(range(len(E))),list(range(len(T))))
 
-print()
-print()
+	assign_score()
 
-for i in A:
-	print("event: ",i.event, "time_interval: ",i.time_interval, "score: ", i.score, "location: ", i.location)
+	status_log()
+	
+	for i in range(k):
+
+
+		best_assignment=select_assignment()
+
+		print("Selection:", E[best_assignment.event],' ', T[best_assignment.time_interval], ' ', best_assignment.score)
+		S.append(best_assignment)
+
+		remove_assignment(A,best_assignment)
+
+		update_assignment(A,best_assignment)
+
+		status_log()
+
+
+
+
+
+def select_assignment():
+
+	return max(A, key=attrgetter('score'))
+
+
+def assign_score() :
+
+	for i  in A :
+		i.score = score(i.event, i.time_interval, S+[i])
+
+
+
+#------------------------------------------------------------------------------------------------------------
+
+def status_log() :
+
+	print()
+	print()
+
+	print("Event  Time Interval  Score  Location  Validity")
+
+	for i in A :
+
+		if len(str(i.score)) >= 5 :
+
+			print(E[i.event], '   ', T[i.time_interval], '           ', '{:.5}'.format(str(i.score)), '', '{:7}'.format(i.location), ' ', i.valid)
+
+		else :
+			print(E[i.event], '   ', T[i.time_interval], '           ', '{:5}'.format(str(i.score)), '', '{:7}'.format(i.location), ' ', i.valid)
+
+
+	print()
+	print()
+
+
+#-----------------------------------------------EXECUTION---------------------------------------------------
+
+def main() :
+
+
+	greedy_alg()
+
+
+
+main()
+
+
+
+
+
+
+
+
+
+
+
+

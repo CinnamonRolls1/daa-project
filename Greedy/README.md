@@ -41,4 +41,4 @@ removes best assignment from assignment list for next iteration
 
 
 `def combinations(a,b):`   
-??
+creates combination set of two given sets

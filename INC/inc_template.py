@@ -1,10 +1,15 @@
+#------------------------------------IMPORT LIBRARIES--------------------------------------------
 from assignment_object import Assignment
 from assignment_object import INC_traits
 from itertools import product
 from operator import attrgetter
+#-------------------------------------------------------------------------------------------------
 
-
+#--------------------------------GUIDLINES-------------------
 #line references from Algorithm 1. INC (k, T, E, C, U)
+#comment lines have been used to seprate section for each function
+#please include functions definitions of functions that have been called in a function in its respective sub-section
+#------------------------------------------------------------
 
 class SES :
 

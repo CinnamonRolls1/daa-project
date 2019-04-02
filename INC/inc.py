@@ -73,7 +73,8 @@ class SES :
 	#-------------------------FIND BOUND(Φ)-------------------
 
 	def get_bound() : # line 16
-		pass
+		top_scorer=max(self.M, key=attrgetter('score'))
+		return top_scorer
 
 	#--------------------------------------------------------
 

@@ -1,9 +1,4 @@
-class INC_traits :
-	def __init__(self, update = True):
-		self.update = update	
-
-
-class Assignment(INC_traits) :
+class Assignment:
 
 	def __init__(self, time_interval = None, event = None, score = 0, location = None, valid = True, update = True):
 		
@@ -12,7 +7,7 @@ class Assignment(INC_traits) :
 		self.score = score
 		self.location = location
 		self.valid = valid
-		INC_traits.__init__(self,update)
+		self.update = update	
 
 		
     

@@ -29,7 +29,7 @@ class SES :
 		self.A = []
 		self.S = []
 
-		self.L_t = []
+		self.L_i = []
 		self.bound = 0
 		self.M = []
 
@@ -58,7 +58,7 @@ class SES :
 
 	#-------------------------UPDATE LIST INTERVAL-----------------------------------
 
-	def update__L_t() : # line 9-10 
+	def update__L_i() : # line 9-10 
 		pass
 	#--------------------------------------------------------------------------------
 

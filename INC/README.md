@@ -33,6 +33,8 @@ competing\_event\_attendance\_probability ???
 
 ## Functions
 `def generate_assignment():`  
+  initializes `self.A` with all possible assignments and their respective scores
+  initilazes `self.M` and `self.L_i` 
   
 `def score(event, time_interval, S):`  
   
@@ -53,3 +55,4 @@ Returns assignment from `self.M` with the highest `score` value.
 Returns assignment from `self.A` with the highest `score` value and `valid` set to True. 
   
 `def INC_algo():`  
+  its the binding fucntion which runs the overall algoirithm

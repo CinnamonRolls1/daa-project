@@ -90,7 +90,14 @@ class SES :
 	#-------------------------SELECT TOP VALID UPDATED ASSIGNMENT-------------
 
 	def get_top_assignment() : # line 7 '(similar to select_assignment()' from greedy.py)
-		pass
+		max_assignment = Assignment()
+
+		for i in self.A:
+			if (i.score > max_assignment.score) and i.valid==True:
+				max_assignment = i
+
+		return max_assignment
+
 
 	#--------------------------------------------------------------------------
 	

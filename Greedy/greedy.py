@@ -166,18 +166,18 @@ def greedy_alg(k=3):
 
 
 
-def select_assignment(previous):    #checks the maximum assignment which is valid provided the previous selection.
+def select_assignment():
 
-	if(previous != None):
-		for i in A :
-			if (i.time_interval == previous.time_interval and i.location == previous.location):
-				i.valid = False
-	lis=[]
-	for i in A:
-		if(i.valid == True):
-			lis.append(i)
-	return max(lis)
-		
+	max = Assignment()
+
+	for i in A :
+
+		if (i.score > max.score) and i.valid :
+			max = i
+
+
+	return max
+
 
 def assign_score() :
 

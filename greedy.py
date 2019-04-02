@@ -147,11 +147,13 @@ def greedy_alg(k=3):
 	assign_score()
 
 	status_log()
+	previous=None
 	
 	for i in range(k):
 
 
-		best_assignment=select_assignment()
+		best_assignment=select_assignment(previous)
+		previous=best_assignment
 
 		print("Selection:", E[best_assignment.event],' ', T[best_assignment.time_interval], ' ', best_assignment.score)
 		S.append(best_assignment)
@@ -166,6 +168,7 @@ def greedy_alg(k=3):
 
 
 
+<<<<<<< HEAD
 def select_assignment():
 
 	max = Assignment()
@@ -178,6 +181,21 @@ def select_assignment():
 
 	return max
 
+=======
+def select_assignment(previous=None):    #checks the maximum assignment which is valid provided the previous selection.
+
+	if(previous != None):
+		for i in A :
+			if (i.time_interval == previous.time_interval and i.location == previous.location):
+				i.valid = False
+	lis=[]
+	for i in A:
+		if(i.valid==True):
+			lis.append(i)
+	index = max(range(len(lis)), key=lambda i: lis[i].score)
+	return lis[index]
+		
+>>>>>>> 7b9c40be3ec2295d3686e71babda18ad5e036e61
 
 def assign_score() :
 

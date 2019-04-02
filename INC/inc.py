@@ -161,9 +161,9 @@ class SES :
 	#----------------------------------------------------------------------------------
 
 	#-------------------------FIND BOUND(Φ)-------------------
-
-	def get_bound(self) : # line 16
-		pass
+	def get_bound() : # line 16
+		top_scorer=max(self.M, key=attrgetter('score'))
+		return top_scorer
 
 	#--------------------------------------------------------
 
@@ -178,8 +178,14 @@ class SES :
 
 	#-------------------------SELECT TOP VALID UPDATED ASSIGNMENT-------------
 
-	def get_top_assignment(self) : # line 7 '(similar to select_assignment()' from greedy.py)
-		pass
+	def get_top_assignment() : # line 7 '(similar to select_assignment()' from greedy.py)
+		max_assignment = Assignment()
+
+		for i in self.A:
+			if (i.score > max_assignment.score) and i.valid==True:
+				max_assignment = i
+
+		return max_assignment
 
 	#--------------------------------------------------------------------------
 	

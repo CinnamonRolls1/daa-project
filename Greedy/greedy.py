@@ -168,15 +168,15 @@ def greedy_alg(k=3):
 
 def select_assignment():
 
-	max = Assignment()
+	max_assignment = Assignment()
 
 	for i in A :
 
-		if (i.score > max.score) and i.valid :
-			max = i
+		if (i.score > max_assignment.score) and i.valid :
+			max_assignment = i
 
 
-	return max
+	return max_assignment
 
 
 def assign_score() :

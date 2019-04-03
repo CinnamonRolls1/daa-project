@@ -166,7 +166,7 @@ def greedy_alg(k=3):
 
 
 
-def select_assignment(A):
+def select_assignment():
 
 	max_assignment = Assignment()
 
@@ -179,7 +179,7 @@ def select_assignment(A):
 	return max_assignment
 
 
-def assign_score(A) :
+def assign_score() :
 
 	for i in A :
 		i.score = score(i.event, i.time_interval, S+[i])

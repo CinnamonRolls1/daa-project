@@ -176,18 +176,18 @@ class SES :
 
 	def update_assignments(self):
 	for i in self.T:
-		if L_i[i].update==True and score(M[i].event,i,self.S)<=self.bound:
-			for j in L_i[i]:
-				if L_i[i].j.valid==False:
-					L_i[i].j.pop()
-				elif L_i[i].j.update==True and score(L_i[i].j.event,i,self.S)>=self.bound:
-					update_score(L_i[i].j,--bestassignment--)
-					L_i[i].j.update=True
-					M[i]=getBetterAssignment(score(M[i].event,i,self.S),score(L_i[i].j,i,self.S))
-					self.bound=getBetterAssignment(self.bound,score(L_i[i].j,i,self.S))
+		if self.L_i[i].update==True and score(self.M[i].event,i,self.S)<=self.bound:
+			for j in self.L_i[i]:
+				if j.valid==False:
+					j.pop()
+				elif j.update==True and score(j.event,i,self.S)>=self.bound:
+					update_score(j,--bestassignment--)
+					j.update=True
+					self.M[i]=getBetterAssignment(score(self.M[i].event,i,self.S),score(j.event,i,self.S))
+					self.bound=getBetterAssignment(self.bound,score(j.event,i,self.S))
 			temp=0
-			for j in L_i[i]:
-				if L_i[i].j.update==False:
+			for j in self.L_i[i]:
+				if j.update==False:
 					temp=1
 			if temp==0:
 				L_i[i].update=True

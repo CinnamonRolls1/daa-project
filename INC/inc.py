@@ -149,7 +149,11 @@ class SES :
 	#-------------------------UPDATE LIST INTERVAL-----------------------------------
 
 	def update__L_i(self, top_assignment) : # line 9-10 
-		pass
+		self.L_i.remove(top_assignment)
+		top_assignment.U=False
+		for i in self.L_i[top_assignment.time_interval]
+			i.update==False
+		
 	#--------------------------------------------------------------------------------
 
 

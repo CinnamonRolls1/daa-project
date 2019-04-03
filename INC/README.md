@@ -1,3 +1,4 @@
+# Incremental Updating Algorithm
 ## Variables
 `self.k`  
 

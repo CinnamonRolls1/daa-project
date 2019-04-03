@@ -157,7 +157,11 @@ class SES :
 	#-------------------------UPDATE TOP VALID UPDATED ASSIGN LIST -------------------
 
 	def update_M(self, top_assignment) : # line 11-15
-		pass
+		for i in M:
+			if (i.time_interval==top_assignment.time_interval):
+				i.score=float("-inf")
+			elif (i.event==top_assignment.event):
+				i=get_top_assignment(L_i)
 	#----------------------------------------------------------------------------------
 
 	#-------------------------FIND BOUND(Φ)-------------------

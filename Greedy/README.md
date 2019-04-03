@@ -1,3 +1,4 @@
+# Greedy Algorithm
 ## Variables
 Users  
 `U = ['u1','u2']`   

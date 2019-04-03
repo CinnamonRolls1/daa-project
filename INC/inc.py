@@ -178,7 +178,7 @@ class SES :
 					L_i[i].j.pop()
 				elif L_i[i].j.update==True and score(L_i[i].j.event,i,self.S)>=self.bound:
 					update_score(L_i[i].j,--bestassignment--)
-					L_i[i].j.update==True
+					L_i[i].j.update=True
 					M[i]=getBetterAssignment(score(M[i].event,i,self.S),score(L_i[i].j,i,self.S))
 					self.bound=getBetterAssignment(self.bound,score(L_i[i].j,i,self.S))
 			temp=0

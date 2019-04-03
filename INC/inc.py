@@ -170,8 +170,23 @@ class SES :
 
 	#------------------------UPDATE ASSIGNMENTS-----------------------------
 
-	def update_assignments(self) : # line 17 - 26
-		pass
+	def update_assignments(self):
+	for i in self.T:
+		if L_i[i].update==True and score(M[i].event,i,self.S)<=self.bound:
+			for j in L_i[i]:
+				if L_i[i].j.valid==False:
+					L_i[i].j.pop()
+				elif L_i[i].j.update==True and score(L_i[i].j.event,i,self.S)>=self.bound:
+					update_score(L_i[i].j,--bestassignment--)
+					L_i[i].j.update==True
+					M[i]=getBetterAssignment(score(M[i].event,i,self.S),score(L_i[i].j,i,self.S))
+					self.bound=getBetterAssignment(self.bound,score(L_i[i].j,i,self.S))
+			temp=0
+			for j in L_i[i]:
+				if L_i[i].j.update==False:
+					temp=1
+			if temp==0:
+				L_i[i].update=True
 	#-----------------------------------------------------------------------
 
 	

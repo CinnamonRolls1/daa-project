@@ -178,7 +178,7 @@ class SES :
 	#------------------------UPDATE ASSIGNMENTS-----------------------------
 
 	def update_assignments(self):
-	for i in self.T:
+	for i in range(self.T):
 		if self.L_i[i].update==True and score(self.M[i].event,i,self.S)<=self.bound:
 			for j in self.L_i[i]:
 				if j.valid==False:

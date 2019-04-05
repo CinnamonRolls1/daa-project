@@ -1,4 +1,4 @@
-from inc_myCode import SES
+from inc import SES
 
 
 U = ['u1','u2']

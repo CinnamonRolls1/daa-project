@@ -149,9 +149,9 @@ class SES :
 	#-------------------------UPDATE LIST INTERVAL-----------------------------------
 
 	def update__L_i(self, top_assignment) : # line 9-10 
-		self.L_i.remove(top_assignment)
+		self.L_i[top_assignment.time_interval].l.remove(top_assignment)
 		top_assignment.U=False
-		self.L_i.update=False
+		self.L_i[top_assignment.time_interval].update=False
 		
 	#--------------------------------------------------------------------------------
 
@@ -160,11 +160,11 @@ class SES :
 	#-------------------------UPDATE TOP VALID UPDATED ASSIGN LIST -------------------
 
 	def update_M(self, top_assignment) : # line 11-15
-		for i in M:
+		for i in self.M:
 			if (i.time_interval==top_assignment.time_interval):
 				i.score=float("-inf")
 			elif (i.event==top_assignment.event):
-				i=get_top_assignment(L_i)
+				i=self.get_top_assignment(self.L_i)
 	#----------------------------------------------------------------------------------
 
 	#-------------------------FIND BOUND(Φ)-------------------
@@ -178,32 +178,33 @@ class SES :
 	#------------------------UPDATE ASSIGNMENTS-----------------------------
 
 	def update_assignments(self):
-	for i in range(self.T):
-		if self.L_i[i].update==True and score(self.M[i].event,i,self.S)<=self.bound:
-			for j in self.L_i[i]:
-				if j.valid==False:
-					j.pop()
-				elif j.update==True and score(j.event,i,self.S)>=self.bound:
-					update_score(j,--bestassignment--)
-					j.update=True
-					self.M[i]=getBetterAssignment(score(self.M[i].event,i,self.S),score(j.event,i,self.S))
-					self.bound=getBetterAssignment(self.bound,score(j.event,i,self.S))
-			temp=0
-			for j in self.L_i[i]:
-				if j.update==False:
-					temp=1
-			if temp==0:
-				L_i[i].update=True
+		for i in range(self.T):
+			if self.L_i[i].update==False and score(self.M[i].event,i,self.S)<=self.bound:
+				for j in self.L_i[i]:
+					if j.valid==False:
+						j.pop()
+					elif j.update==False and score(j.event,i,self.S)>=self.bound:
+						update_score(j,get_top_assignment())
+						j.update=True
+						self.M[i]=getBetterAssignment(score(self.M[i].event,i,self.S),score(j.event,i,self.S))
+						self.bound=getBetterAssignment(self.bound,score(j.event,i,self.S))
+				temp=0
+				for j in self.L_i[i]:
+					if j.update==False:
+						temp=1
+				if temp==0:
+					L_i[i].update=True
 	#-----------------------------------------------------------------------
 
 	
 
 	#-------------------------SELECT TOP VALID UPDATED ASSIGNMENT-------------
 
-	def get_top_assignment() : # line 7 '(similar to select_assignment()' from greedy.py)
+	def get_top_assignment(self,array=None): # line 7 '(similar to select_assignment()' from greedy.py)
 		max_assignment = Assignment()
-
-		for i in self.A:
+		if array == None:
+			array=self.A
+		for i in array:
 			if (i.score > max_assignment.score) and i.valid==True:
 				max_assignment = i
 

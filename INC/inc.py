@@ -139,10 +139,10 @@ class SES :
 		for event in self.L_i[top_assignment.time_interval].l:
 			event.update=False
 
-		#removal of associations
-		for assignment in self.A:
-			if ((assignment.location==top_assignment.location and assignment.time_interval==top_assignment.time_interval) or (assignment.event==top_assignment.event)):
-				assignment.valid=False
+		#removal of associations	
+		#for assignment in self.A:
+		#	if ((assignment.location==top_assignment.location and assignment.time_interval==top_assignment.time_interval) or (assignment.event==top_assignment.event)):
+		#		assignment.valid=False
 		
 	#--------------------------------------------------------------------------------
 
@@ -154,8 +154,12 @@ class SES :
 		for i in self.M:
 			if (i.time_interval==top_assignment.time_interval):
 				i.score=float("-inf")
+				i.valid=False
 			elif (i.event==top_assignment.event):
 				i=self.get_top_assignment(self.L_i[i.time_interval].l)
+
+
+
 	#----------------------------------------------------------------------------------
 
 	#-------------------------FIND BOUND(Φ)-------------------
@@ -168,17 +172,17 @@ class SES :
 
 	#------------------------UPDATE ASSIGNMENTS-----------------------------
 
-	def update_assignments(self):
+	def update_assignments(self,top_assignment):
 		for i in range(len(self.T)):
-			if self.L_i[i].update==False and self.score(self.M[i].event,i,self.S)<=self.bound:
-				for j in self.L_i[i]:
+			if self.L_i[i].update==False and self.M[i].score<=self.bound:
+				for j in self.L_i[i].l:
 					if j.valid==False:
-						j.pop()
-					elif j.update==False and self.score(j.event,i,self.S)>=self.bound:
-						update_score(j,get_top_assignment())
+						L_i[i].l.remove(j)
+					elif j.update==False and j.score >=self.bound:
+						self.update_score(j,top_assignment)
 						j.update=True
-						self.M[i]=getBetterAssignment(self.score(self.M[i].event,i,self.S),self.score(j.event,i,self.S))
-						self.bound=getBetterAssignment(self.bound,self.score(j.event,i,self.S))
+						self.M[i].score=self.getBetterAssignment(self.M[i].score,j.score)
+						self.bound=self.getBetterAssignment(self.bound,j.score)
 				temp=0
 				for j in self.L_i[i]:
 					if j.update==False:
@@ -227,7 +231,7 @@ class SES :
 
 			self.bound = self.get_bound()
 
-			self.update_assignments()
+			self.update_assignments(top_assignment)
 
 	#----------------------------------------------------------------
 

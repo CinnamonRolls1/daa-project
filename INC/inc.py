@@ -59,10 +59,8 @@ class SES :
 
 	def insert_M(self, t_a_e) :
 
-		#print("inside insert_M")
-
 		if t_a_e.score > self.M[t_a_e.time_interval].score :
-			#print("inserted", t_a_e.score)
+	
 			self.M[t_a_e.time_interval] = t_a_e
 
 
@@ -91,15 +89,9 @@ class SES :
 
 	def prob_e_t_u(self, event, time_interval, u, S) :
 
-		#print("for user ",U[u])
-
 		mu_u_e = self.mu_E[u][event]
 
-		#print("mu_u_e: ", mu_u_e)
-
 		sigma_u_t = self.sigma[u][time_interval]
-
-		#print("sigma_u_t: ",sigma_u_t)
 
 		mu_u_c = 0
 		for c in range(len(self.mu_C[u])) :
@@ -107,21 +99,13 @@ class SES :
 			if c == time_interval :
 				mu_u_c += self.mu_C[u][c]
 
-		#print("mu_u_c: ",mu_u_c)
-
 		mu_u_p = 0
 		for p in S :
 
 			if p.time_interval == time_interval :
 				mu_u_p += self.mu_E[u][p.event]
 
-		#print("mu_u_p: ",mu_u_p)
-
 		p = sigma_u_t * (mu_u_e / (mu_u_c + mu_u_p))
-
-		#print("p: ",p)
-
-		#print()
 
 		return p
 
@@ -138,7 +122,6 @@ class SES :
 		for i in S :
 			old_score += self.score(i.event, assignment.time_interval, S)
 
-		#assignment.score = score(assignment.event,assignment.time_interval, S+[assignment]) - score(assignment.event, assignment.time_interval, S)
 		assignment.score = new_score - old_score
 		return assignment.score
 

@@ -1,10 +1,3 @@
-#------------------------------------IMPORT LIBRARIES--------------------------------------------
-from assignment_object import Assignment
-from assignment_object import List_timeInt
-from itertools import product
-from operator import attrgetter
-#-------------------------------------------------------------------------------------------------
-
 #--------------------------------GUIDELINES-------------------
 #line references from Algorithm 1. INC (k, T, E, C, U)
 #comment lines have been used to seprate section for each function
@@ -254,5 +247,4 @@ class SES :
 		print()
 		print()
 
-
-
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

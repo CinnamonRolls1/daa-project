@@ -19,8 +19,31 @@ class HOR(SES) :
 
 
 	#-------------------------------GENERATE ASSIGNEMENT LIST------------------------------
+	def getAssign(self,e,time):
+	for i in self.A:
+		if i.event == e and i.time_interval == time:
+			return i
+
+
 	def generate_assignment(self) : # line 4-8
-		pass
+	ev=list(self.E)
+	se=list()
+	for i in self.S:
+		se.append(i.event)
+
+
+	events = list(range(len(set(ev).intersection(se)))) #Finding uncommon elements using a method I found at https://stackoverflow.com/questions/11348347/find-non-common-elements-in-lists
+	time_intervals = list(range(len(self.T)))
+	c = list(product(events,time_intervals))
+	for i in c:
+		x=self.getAssign(i[0],i[1])
+		if x.valid == True:
+			x.score = self.score(x.event, x.time_interval, self.S)
+			self.L_i[i[1]].l.append(events)
+			if self.M[i[1]] == None:
+				self.M[i[1]] = x
+			else:
+				self.M[i[1]] = getBetterAssgn(self.M[i[1]].score,x.score)
 
 	def getBetterAssgn(self,M_t, t_a_e) : #line 8
 		pass

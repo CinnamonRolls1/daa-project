@@ -42,8 +42,7 @@ class HOR(SES) :
 			self.L_i[i[1]].l.append(events)
 			if self.M[i[1]] == None:
 				self.M[i[1]] = x
-			else:
-				self.M[i[1]] = getBetterAssgn(self.M[i[1]].score,x.score)
+			self.M[i[1]] = getBetterAssgn(self.M[i[1]].score,x.score)
 
 	def getBetterAssgn(self,M_t, t_a_e) : #line 8
 		pass

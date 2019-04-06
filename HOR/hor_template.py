@@ -19,30 +19,8 @@ class HOR(SES) :
 
 
 	#-------------------------------GENERATE ASSIGNEMENT LIST------------------------------
-	def getAssign(self,e,time):
-	for i in self.A:
-		if i.event == e and i.time_interval == time:
-			return i
-
-
 	def generate_assignment(self) : # line 4-8
-	ev=list(self.E)
-	se=list()
-	for i in self.S:
-		se.append(i.event)
-
-
-	events = list(range(len(set(ev).intersection(se)))) #Finding uncommon elements using a method I found at https://stackoverflow.com/questions/11348347/find-non-common-elements-in-lists
-	time_intervals = list(range(len(self.T)))
-	c = list(product(events,time_intervals))
-	for i in c:
-		x=self.getAssign(i[0],i[1])
-		if x.valid == True:
-			x.score = self.score(x.event, x.time_interval, self.S)
-			self.L_i[i[1]].l.append(events)
-			if self.M[i[1]] == None:
-				self.M[i[1]] = x
-			self.M[i[1]] = getBetterAssgn(self.M[i[1]].score,x.score)
+		pass
 
 	def getBetterAssgn(self,M_t, t_a_e) : #line 8
 		pass
@@ -62,12 +40,27 @@ class HOR(SES) :
 			if(has == False):
 				S.append(ass)
 			else:
-				update_M(). # The parameter to this function need to be calculated separately
-					    # the top assignment is from list L_t_p and e_i doesnot belong to S 
+				tp=None
+				for i in self.L_i[ass.time_interval]:
+					if((tp == None or tp.score < i.score) and not_belongs_to_S(param)): #new function needed for param
+						tp=i
 				
+				M.append(tp). #line 14	
+					    
+	def not_belongs_to_S(param):  #returns true if param doesnt belong to S
+		for i in S:
+			if(i == param):
+				return False
+		return True
 
 	def popTopAssgn(self) : #line 10
-		pass
+		top=None
+		for i in M:
+			if(top == None or top.score < i.score):
+				top=i
+		M.remove(top)
+		return top
+			
 
 	def update_M(self,best_assignment) : #line 14
 		pass

@@ -30,7 +30,19 @@ class HOR(SES) :
 	#----------------------------SELECT and UPDATE ASSIGNMENT from M----------------------------------
 
 	def select_update_assgn(self) : #line 9-14
-		pass
+		while( len(M) != 0):
+			ass=popTopAssgn()
+			has=False
+			for i in S:
+				if(ass.event == i.event):
+					has=True
+					break
+			if(has == False):
+				S.append(ass)
+			else:
+				update_M(). # The parameter to this function need to be calculated separately
+					    # the top assignment is from list L_t_p and e_i doesnot belong to S 
+				
 
 	def popTopAssgn(self) : #line 10
 		pass

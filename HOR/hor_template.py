@@ -93,7 +93,13 @@ class HOR(SES) :
 
 	def hor_algorithm(self) :
 
+
+
 		for i in range(len(self.S)) :
+
+			self.M = [Assignment() for i in self.T]
+
+			self.L_i = [[] for i in self.T]0
 
 			self.generate_assignment()
 

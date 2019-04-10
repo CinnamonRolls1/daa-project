@@ -1,5 +1,5 @@
-from inc import SES
-
+from class_ses import SES
+from hor_template import HOR
 
 U = ['u1','u2']
 S = []
@@ -13,10 +13,12 @@ mu_E = [[0.9, 0.3, 0, 0.6],[0.2, 0.6, 0.1, 0.6]]
 mu_C = [[0.8, 0.3],[0.4, 0.7]]
 
 
-inc_object = SES(3, U, E , T , location ,sigma,mu_E,mu_C)
+hor_object = HOR(3, U, E , T , location ,sigma,mu_E,mu_C)
 
-inc_object.generate_assignment()
+hor_object.generate_assignment()
 
-inc_object.INC_algo()
+#hor_object.hor_algorithm()
+
+hor_object.status_log()
 
 

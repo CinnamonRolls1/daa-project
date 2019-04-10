@@ -26,6 +26,9 @@ class HOR(SES) :
 
 
 	def generate_assignment(self): # line 4-8
+
+		super().generate_assignment()
+
 		#ev=list(self.E)       #list for all available events
 		se=list()              #List for all events in the schedule set
 		if self.S != []:
@@ -39,14 +42,20 @@ class HOR(SES) :
 		for i in c:
 			x=self.getAssign(i[0],i[1])   #returns assignment with the given event and time interval
 			if x.valid == True:
-				x.score = self.update_score(x, get_top_assignment())
+				x.score = self.score(x.event, x.time_interval, self.S+[x])
 				self.L_i[i[1]].l.append(x)
 				if self.M[i[1]].event == None:
 					self.M[i[1]] = x
-				self.M[i[1]] = getBetterAssignment(self.M[i[1]].score,x.score)
+				self.M[i[1]] = self.getBetterAssignment(self.M[i[1]],x.score)
 
 	def getBetterAssgn(self,M_t, t_a_e) : #line 8
-		pass
+
+		if M_t > t_a_e.score :
+			return t_a_e
+
+		else :
+			return M_t
+		
 
 	#--------------------------------------------------------------------------------------
 
@@ -68,7 +77,7 @@ class HOR(SES) :
 					if((tp == None or tp.score < i.score) and not_belongs_to_S(param)): #new function needed for param
 						tp=i
 				
-				self.M.append(tp). #line 14	
+				self.M.append(tp) #line 14	
 					    
 	def not_belongs_to_S(param):  #returns true if param doesnt belong to S
 		for i in self.S:
@@ -100,7 +109,7 @@ class HOR(SES) :
 
 			self.M = [Assignment() for i in self.T]
 
-			self.L_i = [[] for i in self.T]0
+			self.L_i = [[] for i in self.T ]
 
 			self.generate_assignment()
 

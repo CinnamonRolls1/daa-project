@@ -4,6 +4,13 @@
 #please include functions definitions of functions that have been called in a function in its respective sub-section
 #------------------------------------------------------------
 
+#------------------------------------IMPORT LIBRARIES--------------------------------------------
+from assignment_object import Assignment
+from assignment_object import List_timeInt
+from itertools import product
+from operator import attrgetter
+#-------------------------------------------------------------------------------------------------
+
 class SES :
 
 	def __init__(self,k = 0, U = [], E = [], T = [], location = [] ,social_active_probabilities = [],event_attendance_probability = [] ,competing_event_attendance_probability = []):
@@ -43,10 +50,19 @@ class SES :
 			t_a_e = Assignment(i[1],i[0], location= self.location[i[0]])
 			self.A.append(t_a_e)
 
+
+
+
+	def fill__Li(self) :
+
+		for t_a_e in self.A :
+
 			self.L_i[t_a_e.time_interval].l.append(t_a_e)
 
+	def preprocessing(self) :
 
-
+		self.generate_assignment()
+		self.fill__Li()
 		self.assign_score()
 
 
@@ -227,7 +243,10 @@ class SES :
 
 	#----------------------------------------------------------------
 
-	def status_log(self,assignment_list) :
+	def status_log(self,assignment_list=None) :
+
+		if assignment_list == None :
+			assignment_list = self.A
 
 		print()
 		print()

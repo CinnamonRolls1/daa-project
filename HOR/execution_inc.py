@@ -20,5 +20,7 @@ hor_object.generate_assignment()
 #hor_object.hor_algorithm()
 
 hor_object.status_log()
+hor_object.status_log(hor_object.L_i[0])
+hor_object.status_log(hor_object.L_i[1])
 
 

@@ -30,31 +30,31 @@ class HOR(SES) :
 		super().generate_assignment()
 
 		#ev=list(self.E)       #list for all available events
-		se=list()              #List for all events in the schedule set
-		if self.S != []:
-			for i in self.S:
-				se.append(i.event)
+		se= set(list(map(lambda x: x.event, self.S)))           #List for all events in the schedule set
+
+		e = set(list(range(len(self.E))))
+
+		diff_e = e.difference(se)
 
 
-		events = list(range(len(set(list(self.E)).intersection(se)))) #Finding uncommon elements using a method I found at https://stackoverflow.com/questions/11348347/find-non-common-elements-in-lists
+		events = list(diff_e) #Finding uncommon elements using a method I found at https://stackoverflow.com/questions/11348347/find-non-common-elements-in-lists
+
+		#print(events)
+
 		time_intervals = list(range(len(self.T)))  #list of time intervals
 		c = list(product(events,time_intervals))   #All possible combinations of events and time intervals
+		print(c)
+
 		for i in c:
 			x=self.getAssign(i[0],i[1])   #returns assignment with the given event and time interval
+			self.print_assignment(x)
 			if x.valid == True:
 				x.score = self.score(x.event, x.time_interval, self.S+[x])
-				self.L_i[i[1]].l.append(x)
-				if self.M[i[1]].event == None:
+				self.L_i[i[1]].append(x)
+				if self.M[i[1]].event == "":
 					self.M[i[1]] = x
-				self.M[i[1]] = self.getBetterAssignment(self.M[i[1]],x.score)
+				self.M[i[1]] = self.getBetterAssignment(self.M[i[1]],x)
 
-	def getBetterAssgn(self,M_t, t_a_e) : #line 8
-
-		if M_t > t_a_e.score :
-			return t_a_e
-
-		else :
-			return M_t
 		
 
 	#--------------------------------------------------------------------------------------

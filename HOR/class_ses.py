@@ -1,15 +1,15 @@
-#--------------------------------GUIDELINES-------------------
-#line references from Algorithm 1. INC (k, T, E, C, U)
-#comment lines have been used to seprate section for each function
-#please include functions definitions of functions that have been called in a function in its respective sub-section
-#------------------------------------------------------------
-
 #------------------------------------IMPORT LIBRARIES--------------------------------------------
 from assignment_object import Assignment
 from assignment_object import List_timeInt
 from itertools import product
 from operator import attrgetter
 #-------------------------------------------------------------------------------------------------
+
+#--------------------------------GUIDELINES-------------------
+#line references from Algorithm 1. INC (k, T, E, C, U)
+#comment lines have been used to seprate section for each function
+#please include functions definitions of functions that have been called in a function in its respective sub-section
+#------------------------------------------------------------
 
 class SES :
 
@@ -31,9 +31,9 @@ class SES :
 
 		self.L_i = [List_timeInt(i) for i in self.T]
 		self.M = [Assignment() for i in self.T]
-		self.bound = 0
+		self.bound = Assignment()
 
-	#-------------------GENERATE ASSIGNMENT LIST-------------------------------
+	#-------------------PREPROCESSING-------------------------------
 	
 	def generate_assignment(self) : # line 1-5 - generates all possible assignments and initializes the M list
 
@@ -53,33 +53,37 @@ class SES :
 
 
 
-	def fill__Li(self) :
+		#self.assign_score()
 
+	def fill__L_i(self) :
 		for t_a_e in self.A :
 
 			self.L_i[t_a_e.time_interval].l.append(t_a_e)
 
+
 	def preprocessing(self) :
 
 		self.generate_assignment()
-		self.fill__Li()
+		self.fill__L_i()
 		self.assign_score()
 
 
-	def insert_M(self, t_a_e) :
 
-		#print("inside insert_M")
 
-		if t_a_e.score > self.M[t_a_e.time_interval].score :
-			#print("inserted", t_a_e.score)
-			self.M[t_a_e.time_interval] = t_a_e
+	def getBetterAssignment(self, current_assignment, t_a_e) :
+
+		if t_a_e.score > current_assignment.score :
+	
+			current_assignment = t_a_e
+
+		return current_assignment
 
 
 	def assign_score(self) :
 
-		for i  in self.A :
+		for i in self.A :
 			i.score = self.score(i.event, i.time_interval, self.S+[i])
-			self.insert_M(i)
+			self.M[i.time_interval] = self.getBetterAssignment(self.M[i.time_interval],i)
 
 		
 	#-------------------------------------------------------------------------
@@ -100,15 +104,9 @@ class SES :
 
 	def prob_e_t_u(self, event, time_interval, u, S) :
 
-		#print("for user ",U[u])
-
 		mu_u_e = self.mu_E[u][event]
 
-		#print("mu_u_e: ", mu_u_e)
-
 		sigma_u_t = self.sigma[u][time_interval]
-
-		#print("sigma_u_t: ",sigma_u_t)
 
 		mu_u_c = 0
 		for c in range(len(self.mu_C[u])) :
@@ -116,21 +114,13 @@ class SES :
 			if c == time_interval :
 				mu_u_c += self.mu_C[u][c]
 
-		#print("mu_u_c: ",mu_u_c)
-
 		mu_u_p = 0
 		for p in S :
 
 			if p.time_interval == time_interval :
 				mu_u_p += self.mu_E[u][p.event]
 
-		#print("mu_u_p: ",mu_u_p)
-
 		p = sigma_u_t * (mu_u_e / (mu_u_c + mu_u_p))
-
-		#print("p: ",p)
-
-		#print()
 
 		return p
 
@@ -144,10 +134,9 @@ class SES :
 		for i in new_S :
 			new_score += self.score(i.event, assignment.time_interval, new_S)
 
-		for i in S :
-			old_score += self.score(i.event, assignment.time_interval, S)
+		for i in self.S :
+			old_score += self.score(i.event, assignment.time_interval, self.S)
 
-		#assignment.score = score(assignment.event,assignment.time_interval, S+[assignment]) - score(assignment.event, assignment.time_interval, S)
 		assignment.score = new_score - old_score
 		return assignment.score
 
@@ -161,6 +150,14 @@ class SES :
 		self.L_i[top_assignment.time_interval].l.remove(top_assignment)
 		top_assignment.U=False
 		self.L_i[top_assignment.time_interval].update=False
+
+		for event in self.L_i[top_assignment.time_interval].l:
+			event.update=False
+
+		#removal of associations	
+		#for assignment in self.A:
+		#	if ((assignment.location==top_assignment.location and assignment.time_interval==top_assignment.time_interval) or (assignment.event==top_assignment.event)):
+		#		assignment.valid=False
 		
 	#--------------------------------------------------------------------------------
 
@@ -169,16 +166,31 @@ class SES :
 	#-------------------------UPDATE TOP VALID UPDATED ASSIGN LIST -------------------
 
 	def update_M(self, top_assignment) : # line 11-15
-		for i in self.M:
-			if (i.time_interval==top_assignment.time_interval):
-				i.score=float("-inf")
-			elif (i.event==top_assignment.event):
-				i=self.get_top_assignment(self.L_i)
+		for i in range(len(self.M)):
+			if (self.M[i].time_interval==top_assignment.time_interval):
+				self.M[i].score=float("-inf")
+				self.M[i].valid=False
+			elif (self.M[i].event==top_assignment.event):
+				#self.status_log(self.L_i[i].l)
+				self.M[i]=self.get_top_assignment(self.L_i[i].l)
+
+
+
 	#----------------------------------------------------------------------------------
 
 	#-------------------------FIND BOUND(Φ)-------------------
-	def get_bound() : # line 16
-		top_scorer=max(self.M, key=attrgetter('score')).score
+	def get_bound(self) : # line 16
+
+		flag = False
+
+		for i in self.M :
+			if i.update and i.valid :
+				flag = True
+
+		top_scorer = Assignment(score = "unavailable")
+		if flag :
+			top_scorer=max(self.M, key=attrgetter('score'))
+
 		return top_scorer
 
 	#--------------------------------------------------------
@@ -186,23 +198,57 @@ class SES :
 
 	#------------------------UPDATE ASSIGNMENTS-----------------------------
 
-	def update_assignments(self):
-		for i in range(self.T):
-			if self.L_i[i].update==False and score(self.M[i].event,i,self.S)<=self.bound:
-				for j in self.L_i[i]:
-					if j.valid==False:
-						j.pop()
-					elif j.update==False and score(j.event,i,self.S)>=self.bound:
-						update_score(j,get_top_assignment())
-						j.update=True
-						self.M[i]=getBetterAssignment(score(self.M[i].event,i,self.S),score(j.event,i,self.S))
-						self.bound=getBetterAssignment(self.bound,score(j.event,i,self.S))
+	def update_assignments(self,top_assignment):
+
+		update_assignment_list = []
+		for i in range(len(self.T)):
+
+			if self.bound.score == "unavailable" :
+				max = Assignment()
+				for j in range(len(self.A)) :
+					if self.A[j].valid and self.A[j].score > max.score :
+						max = self.A[j]
+
+				self.update_score(max,top_assignment)
+				max.update = True
+				update_assignment_list.append(max)
+				self.bound = max
+
+				break
+
+
+			if self.L_i[i].update==False and self.M[i].score<=self.bound.score:
+				#print(i)
+
+				j = 0
+				while j < len(self.L_i[i].l) :
+
+					#
+					if self.L_i[i].l[j].valid==False:
+						self.L_i[i].l.pop(j)
+
+
+					elif self.L_i[i].l[j].update==False and self.L_i[i].l[j].score >=self.bound.score:
+						self.update_score(self.L_i[i].l[j],top_assignment)
+						self.L_i[i].l[j].update=True
+						update_assignment_list.append(self.L_i[i].l[j])
+						self.M[i] = self.getBetterAssignment(self.M[i],self.L_i[i].l[j])
+
+						self.bound = self.getBetterAssignment(self.bound,self.L_i[i].l[j])
+
+					j += 1
+
+					
 				temp=0
-				for j in self.L_i[i]:
+				for j in self.L_i[i].l:
 					if j.update==False:
 						temp=1
+						break
 				if temp==0:
-					L_i[i].update=True
+					self.L_i[i].update=True
+
+		self.print_updated_assignments(update_assignment_list)
+
 	#-----------------------------------------------------------------------
 
 	
@@ -211,45 +257,77 @@ class SES :
 
 	def get_top_assignment(self,array=None): # line 7 '(similar to select_assignment()' from greedy.py)
 		max_assignment = Assignment()
+
 		if array == None:
 			array=self.A
+		
 		for i in array:
 			if (i.score > max_assignment.score) and i.valid==True:
 				max_assignment = i
 
+
+
 		return max_assignment
+
+	def update_validity(self,top_assignment) :
+
+		for assignment in self.A:
+			if ((assignment.location==top_assignment.location and assignment.time_interval==top_assignment.time_interval) or (assignment.event==top_assignment.event)):
+				assignment.valid=False
 
 	#--------------------------------------------------------------------------
 	
 
 	#----------------------INC ALGORITHM------------------------------
 	def INC_algo(self) : # line 6-26
+
+
+		self.status_log(self.A)
 	
 		for i in range(self.k) :	
 			top_assignment = self.get_top_assignment()
 
-			print("top_assignment: ",top_assignment)
-			self.status_log(self.A)
+			print("top_assignment: ",self.E[top_assignment.event], self.T[top_assignment.time_interval])
+
+			self.update_validity(top_assignment)
+			#self.status_log(self.A)
+
+			#self.L_i[top_assignment.time_interval].l.remove(top_assignment)
 
 			self.S.append(top_assignment)
 
 			self.update__L_i(top_assignment)
+			
 
 			self.update_M(top_assignment)
-
+			
 			self.bound = self.get_bound()
 
-			self.update_assignments()
+			print("                       status_log 1                         ")
+			self.status_log(self.A)
+			
+
+			
+
+			self.update_assignments(top_assignment)
+			
+			print("                       status_log 2                         ")
+			self.status_log(self.A)
+
+			#self.print_updated_assignments()
+
 
 	#----------------------------------------------------------------
 
-	def status_log(self,assignment_list=None) :
+	#--------------------------------------------------------DISPLAY----------------------------------------------
+	def status_log(self,assignment_list = None) :
 
 		if assignment_list == None :
 			assignment_list = self.A
 
 		print()
 		print()
+		print("-------------------------------------------------------------")
 
 		print("Event  Time Interval  Score  Location  Validity")
 
@@ -263,7 +341,41 @@ class SES :
 				print(self.E[i.event], '   ', self.T[i.time_interval], '           ', '{:5}'.format(str(i.score)), '', '{:7}'.format(i.location), ' ', i.valid)
 
 
+		#print("Bound: ",self.print_assignment(self.bound), " ", self.bound.score)
+
+		self.print_M()
+
+		#print("M: ", list(map(self.print_assignment,self.M)),"\n")
+		#print("L_1: ",list(map(self.print_assignment,self.L_i[0].l))," update: ",self.L_i[0].update)
+		#print("L_2: ", list(map(self.print_assignment,self.L_i[1].l))," update: ",self.L_i[1].update,"\n")
+
+
+		print("--------------------------------------------------------------")
 		print()
 		print()
 
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	def print_M(self) :
+		print("M: ", list(map(self.print_assignment,self.M)),"\n")
+		#print(self.M)
+
+	def print_assignment(self,assignment):
+
+		if assignment.event == '' :
+			return str(assignment.time_interval + "_a_" + assignment.event)
+			
+		return str(self.T[assignment.time_interval] + "_a_" + self.E[assignment.event])
+
+
+	def print_updated_assignments(self,UA_list):
+
+		print("Updated Assignments:  ",end = ' ')
+
+		for j in UA_list :
+			if j.update :
+				print(self.print_assignment(j),end = "  ")
+
+		print("\n\n")
+		
+
+	#----------------------------------------------------------------------------------------------------------------
+

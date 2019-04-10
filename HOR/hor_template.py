@@ -48,11 +48,17 @@ class HOR(SES) :
 		pass
 
 	#--------------------------------------------------------------------------------------
+	def not_belongs_to_S(param):  #returns true if param doesnt belong to S
+		for i in S:
+			if(i.event == param.event):
+				return False
+		return True
+	
 
 	#----------------------------SELECT and UPDATE ASSIGNMENT from M----------------------------------
 
 	def select_update_assgn(self) : #line 9-14
-		while( len(M) != 0):
+		while( len(M) != 0 and len(S) <= self.k):
 			ass=popTopAssgn()
 			has=False
 			for i in S:
@@ -64,16 +70,12 @@ class HOR(SES) :
 			else:
 				tp=None
 				for i in self.L_i[ass.time_interval]:
-					if((tp == None or tp.score < i.score) and not_belongs_to_S(param)): #new function needed for param
+					if((tp == None or tp.score < i.score) and not_belongs_to_S(tp)): #new function needed for param
 						tp=i
 				
 				M.append(tp). #line 14	
 					    
-	def not_belongs_to_S(param):  #returns true if param doesnt belong to S
-		for i in S:
-			if(i == param):
-				return False
-		return True
+	
 
 	def popTopAssgn(self) : #line 10
 		top=None

@@ -53,35 +53,35 @@ class HOR(SES) :
 	#----------------------------SELECT and UPDATE ASSIGNMENT from M----------------------------------
 
 	def select_update_assgn(self) : #line 9-14
-		while( len(M) != 0):
+		while( len(self.M) != 0):
 			ass=popTopAssgn()
 			has=False
-			for i in S:
+			for i in self.S:
 				if(ass.event == i.event):
 					has=True
 					break
 			if(has == False):
-				S.append(ass)
+				self.S.append(ass)
 			else:
 				tp=None
 				for i in self.L_i[ass.time_interval]:
 					if((tp == None or tp.score < i.score) and not_belongs_to_S(param)): #new function needed for param
 						tp=i
 				
-				M.append(tp). #line 14	
+				self.M.append(tp). #line 14	
 					    
 	def not_belongs_to_S(param):  #returns true if param doesnt belong to S
-		for i in S:
+		for i in self.S:
 			if(i == param):
 				return False
 		return True
 
 	def popTopAssgn(self) : #line 10
 		top=None
-		for i in M:
+		for i in self.M:
 			if(top == None or top.score < i.score):
 				top=i
-		M.remove(top)
+		self.M.remove(top)
 		return top
 			
 

@@ -44,7 +44,7 @@ competing\_event\_attendance\_probability ???
 `def update_score(assignment,best_assignment):`
   
 `def update__L_i():` 
-Removes Top assignment from list L_i[ ]. And makes update status False for all the processes in the list L_i[ ] with same time_interval
+Removes Top assignment from list `L_i[ ]`. And makes update status False for all the processes in the list `L_i[ ]` with same `time_interval`.
   
 `def update_M():`
   

@@ -1,12 +1,16 @@
 # Incremental Updating Algorithm
 ## Variables
 `self.k`  
+no of events to be assigned
 
 `self.U`  
+lists of users 
 
 `self.E`   
+list of events
 
 `self.T`  
+list of time intervals
 
 `self.location`  
 Location
@@ -22,14 +26,19 @@ competing\_event\_attendance\_probability ???
 
 
 `self.A` 
+list of all possible assignments
 
 `self.S` 
+schedule set
 
 `self.L_i`  
+list of assignemnt lit in each time interval
 
 `self.bound`   
+phi value for which values only above it are considered for updation and selection
 
 `self.M`                   
+has the top score assignment of each time interval
 
 
 ## Functions

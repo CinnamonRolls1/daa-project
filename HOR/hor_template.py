@@ -26,21 +26,22 @@ class HOR(SES) :
 
 
 	def generate_assignment(self): # line 4-8
-		ev=list(self.E)
-		se=list()
-		for i in self.S:
-			se.append(i.event)
+		#ev=list(self.E)       #list for all available events
+		se=list()              #List for all events in the schedule set
+		if self.S != []:
+			for i in self.S:
+				se.append(i.event)
 
 
-		events = list(range(len(set(ev).intersection(se)))) #Finding uncommon elements using a method I found at https://stackoverflow.com/questions/11348347/find-non-common-elements-in-lists
-		time_intervals = list(range(len(self.T)))
-		c = list(product(events,time_intervals))
+		events = list(range(len(set(list(self.E)).intersection(se)))) #Finding uncommon elements using a method I found at https://stackoverflow.com/questions/11348347/find-non-common-elements-in-lists
+		time_intervals = list(range(len(self.T)))  #list of time intervals
+		c = list(product(events,time_intervals))   #All possible combinations of events and time intervals
 		for i in c:
-			x=self.getAssign(i[0],i[1])
+			x=self.getAssign(i[0],i[1])   #returns assignment with the given event and time interval
 			if x.valid == True:
-				x.score = self.score(x.event, x.time_interval, self.S)
-				self.L_i[i[1]].l.append(events)
-				if self.M[i[1]] == None:
+				x.score = self.update_score(x, get_top_assignment())
+				self.L_i[i[1]].l.append(x)
+				if self.M[i[1]].event == None:
 					self.M[i[1]] = x
 				self.M[i[1]] = getBetterAssignment(self.M[i[1]].score,x.score)
 
@@ -48,17 +49,11 @@ class HOR(SES) :
 		pass
 
 	#--------------------------------------------------------------------------------------
-	def not_belongs_to_S(param):  #returns true if param doesnt belong to S
-		for i in S:
-			if(i.event == param.event):
-				return False
-		return True
-	
 
 	#----------------------------SELECT and UPDATE ASSIGNMENT from M----------------------------------
 
 	def select_update_assgn(self) : #line 9-14
-		while( len(M) != 0 and len(S) <= self.k):
+		while( len(M) != 0):
 			ass=popTopAssgn()
 			has=False
 			for i in S:
@@ -70,12 +65,16 @@ class HOR(SES) :
 			else:
 				tp=None
 				for i in self.L_i[ass.time_interval]:
-					if((tp == None or tp.score < i.score) and not_belongs_to_S(tp)): #new function needed for param
+					if((tp == None or tp.score < i.score) and not_belongs_to_S(param)): #new function needed for param
 						tp=i
 				
 				M.append(tp). #line 14	
 					    
-	
+	def not_belongs_to_S(param):  #returns true if param doesnt belong to S
+		for i in S:
+			if(i == param):
+				return False
+		return True
 
 	def popTopAssgn(self) : #line 10
 		top=None
@@ -86,6 +85,8 @@ class HOR(SES) :
 		return top
 			
 
+	def update_M(self,best_assignment) : #line 14
+		pass
 
 	#-------------------------------------------------------------------------------------------------
 

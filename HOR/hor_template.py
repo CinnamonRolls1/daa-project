@@ -86,8 +86,6 @@ class HOR(SES) :
 		return top
 			
 
-	def update_M(self,best_assignment) : #line 14
-		pass
 
 	#-------------------------------------------------------------------------------------------------
 

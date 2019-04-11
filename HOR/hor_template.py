@@ -43,7 +43,7 @@ class HOR(SES) :
 
 		time_intervals = list(range(len(self.T)))  #list of time intervals
 		c = list(product(events,time_intervals))   #All possible combinations of events and time intervals
-		print(c)
+		#print(c)
 
 		for i in c:
 			x=self.getAssign(i[0],i[1])   #returns assignment with the given event and time interval
@@ -52,7 +52,7 @@ class HOR(SES) :
 				x.score = self.score(x.event, x.time_interval, self.S+[x])
 				#print("out of range error val: ",i[1])
 				self.L_i[i[1]].append(x)
-				if self.M[i[1]].event == "":
+				if self.M[i[1]]== None:
 					self.M[i[1]] = x
 				self.M[i[1]] = self.getBetterAssignment(self.M[i[1]],x)
 
@@ -63,12 +63,14 @@ class HOR(SES) :
 
 	def popTopAssgn(self) : #line 10
 		top=None
+		index=None
 		for i in range(len(self.M)):
 			if(self.M[i] == None):
 				continue
 			elif((top == None) or (top.score < self.M[i].score)):
 				top=self.M[i]
-		self.M[top.time_interval]=None
+				index=i
+		self.M[index]=None
 
 		return top
 
@@ -76,27 +78,29 @@ class HOR(SES) :
 
 	def select_update_assgn(self) : #line 9-14
 		for i in range(len(self.M)):
-			print("lengthl",len(self.M))
+			#print("lengthl",len(self.M))
 			if(len(self.S) >= self.k):
 				break
 
 			ass=self.popTopAssgn()
+			#print(ass.event)
 			eve=[i.event for i in self.S]
 			eve=list(filter(lambda z : z!=None,eve))
-			print(eve)
+			#print(eve)
 			if len(eve)!=0 and ass.event in eve:
 				has=True
 			else:
 				has=False
-			print("has value.  ",has)
+			#print("has value.  ",has)
 			if(has == False):
+				print("appending")
 				self.S.append(ass)
 			else:
-				"""tp=None
+				tp=None
 				for i in self.L_i[ass.time_interval]:
 					if((tp == None or tp.score < i.score) and self.not_belongs_to_S(i)): #new function needed for param
-						tp=i"""
-				tp=max(self.L_i[ass.time_interval], key=attrgetter('score'))
+						tp=i
+				#tp=max(self.L_i[ass.time_interval], key=attrgetter('score'))
 				
 				self.M[tp.time_interval]=tp #line 14	
 					    
@@ -119,11 +123,18 @@ class HOR(SES) :
 	def hor_algorithm(self) :
 
 		while(len(self.S)<self.k):
+			#print(len(self.S))
+			#print("*")
 			self.generate_assignment()
+
 			#print("**")
 			self.select_update_assgn()
 			#print("***")
 			#print(self.S[1].event)
+			#print("***")
+			print(len(self.M))
+			for i in self.M:
+				print(i.score,"\t",i.event)
 		print("event","\t","time_interval","\t","location")
 		for i in self.S:
 

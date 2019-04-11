@@ -50,6 +50,7 @@ class HOR(SES) :
 			self.print_assignment(x)
 			if x.valid == True:
 				x.score = self.score(x.event, x.time_interval, self.S+[x])
+				#print("out of range error val: ",i[1])
 				self.L_i[i[1]].append(x)
 				if self.M[i[1]].event == "":
 					self.M[i[1]] = x
@@ -59,39 +60,53 @@ class HOR(SES) :
 
 	#--------------------------------------------------------------------------------------
 
+
+	def popTopAssgn(self) : #line 10
+		top=None
+		for i in range(len(self.M)):
+			if(self.M[i] == None):
+				continue
+			elif((top == None) or (top.score < self.M[i].score)):
+				top=self.M[i]
+		self.M[top.time_interval]=None
+
+		return top
+
 	#----------------------------SELECT and UPDATE ASSIGNMENT from M----------------------------------
 
 	def select_update_assgn(self) : #line 9-14
-		while( len(self.M) != 0):
-			ass=popTopAssgn()
-			has=False
-			for i in self.S:
-				if(ass.event == i.event):
-					has=True
-					break
+		for i in range(len(self.M)):
+			print("lengthl",len(self.M))
+			if(len(self.S) >= self.k):
+				break
+
+			ass=self.popTopAssgn()
+			eve=[i.event for i in self.S]
+			eve=list(filter(lambda z : z!=None,eve))
+			print(eve)
+			if len(eve)!=0 and ass.event in eve:
+				has=True
+			else:
+				has=False
+			print("has value.  ",has)
 			if(has == False):
 				self.S.append(ass)
 			else:
-				tp=None
+				"""tp=None
 				for i in self.L_i[ass.time_interval]:
-					if((tp == None or tp.score < i.score) and not_belongs_to_S(param)): #new function needed for param
-						tp=i
+					if((tp == None or tp.score < i.score) and self.not_belongs_to_S(i)): #new function needed for param
+						tp=i"""
+				tp=max(self.L_i[ass.time_interval], key=attrgetter('score'))
 				
-				self.M.append(tp) #line 14	
+				self.M[tp.time_interval]=tp #line 14	
 					    
-	def not_belongs_to_S(param):  #returns true if param doesnt belong to S
+	def not_belongs_to_S(self,param):  #returns true if param doesnt belong to S
 		for i in self.S:
 			if(i == param):
 				return False
 		return True
 
-	def popTopAssgn(self) : #line 10
-		top=None
-		for i in self.M:
-			if(top == None or top.score < i.score):
-				top=i
-		self.M.remove(top)
-		return top
+	
 			
 
 	def update_M(self,best_assignment) : #line 14
@@ -103,15 +118,15 @@ class HOR(SES) :
 
 	def hor_algorithm(self) :
 
-
-
-		for i in range(len(self.S)) :
-
-			self.M = [Assignment() for i in self.T]
-
-			self.L_i = [[] for i in self.T ]
-
+		while(len(self.S)<self.k):
 			self.generate_assignment()
-
+			#print("**")
 			self.select_update_assgn()
+			#print("***")
+			#print(self.S[1].event)
+		print("event","\t","time_interval","\t","location")
+		for i in self.S:
+
+			print(i.event,"\t",i.time_interval,"\t",i.location)
+
 

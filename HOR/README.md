@@ -58,4 +58,4 @@ modifies the lists `S` and `M` according to the Algorithm.
 It returns `True` if param doesnt belongs to List `S`.
   
 `def hor_algorithm():`    
-  It's the binding fucntion which runs the overall algoirithm. It resets `self.M` and calls  `generate assignments` and calls `select_update assignments`. The algorithm loop terminate when `self.S` gets filled with `self.k` no of candidate events.
+  It's the binding function which runs the overall algoirithm. It resets `self.M` and calls  `generate assignments` and calls `select_update assignments`. The algorithm loop terminate when `self.S` gets filled with `self.k` no of candidate events.

@@ -48,10 +48,13 @@ has the top score assignment of each time interval
   initilazes `self.M` and `self.L_i` 
   
 `def popTopAssgn():`  
+Pops top assignment from list `M`.
   
 `def select_update_assgn():`
+modifies the lists `S` and `M` according to the Algorithm.
 
 `def not_belongs_to_S(param):`
+It returns `True` if param foesnt belongs to List `S`.
   
 `def hor_algorithm():`  
   its the binding fucntion which runs the overall algoirithm. It resets `self.M` and calls  `generate assignments` and calls `select_update assignments`. The algorithm loop terminate when |`self.S`| gets filled with `self.k` no of candidate events.

@@ -1,5 +1,5 @@
 from class_ses import SES
-from hor_template import HOR
+from hor import HOR
 
 U = ['u1','u2']
 S = []

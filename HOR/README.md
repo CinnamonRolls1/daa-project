@@ -42,7 +42,7 @@ has the top score assignment of each time interval
 
 ## Functions
 `def getAssign(e,time):`
-  returns an existing assignment within `self.A` when an event and time-interval are given as arguments 
+  returns an existing assignment within `self.A` correlating to an event and time-interval that are given as arguments 
 
 `def generate_assignment():`  
   initializes `self.A` with all possible assignments and their respective scores

@@ -1,10 +1,10 @@
 ## Assignment Object
-`self.time_interval` = index of time_interval in `self.T`
-`self.event` =  index of event in `self.E` 
-`self.score` = float value that stores expected attendance
-`self.location` = index of venue from `self.location`
-`self.valid` = Stores  *True* if it is valid assignment else *False*
-`self.update` = *True* if it is updated *False* if  it is yet to be update
+`self.time_interval` = index of time_interval in `self.T`  
+`self.event` =  index of event in `self.E`   
+`self.score` = float value that stores expected attendance  
+`self.location` = index of venue from `self.location`  
+`self.valid` = Stores  *True* if it is valid assignment else *False*  
+`self.update` = *True* if it is updated *False* if  it is yet to be update  
 
 ## Class HOR_I
 

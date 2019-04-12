@@ -1,4 +1,4 @@
-from inc import SES
+from inc import INC
 
 
 U = ['u1','u2']
@@ -13,7 +13,7 @@ mu_E = [[0.9, 0.3, 0, 0.6],[0.2, 0.6, 0.1, 0.6]]
 mu_C = [[0.8, 0.3],[0.4, 0.7]]
 
 
-inc_object = SES(3, U, E , T , location ,sigma,mu_E,mu_C)
+inc_object = INC(3, U, E , T , location ,sigma,mu_E,mu_C)
 
 inc_object.generate_assignment()
 

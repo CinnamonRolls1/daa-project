@@ -5,7 +5,7 @@ from itertools import product
 from operator import attrgetter
 #----------------------------------------------------
 
-class SES:
+class GRE:
 
         #-------------------------------DATA AND GLOBAL VARIABLES---------------------------
 
@@ -214,7 +214,7 @@ class SES:
 
 #-----------------------------------------------EXECUTION---------------------------------------------------
 
-def main() :
-        test=SES()
+
+if __name__ == '__main__':
+        test=GRE()
         test.greedy_alg()
-main()

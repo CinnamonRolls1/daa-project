@@ -11,7 +11,7 @@ from operator import attrgetter
 #please include functions definitions of functions that have been called in a function in its respective sub-section
 #------------------------------------------------------------
 
-class SES :
+class INC:
 
 	def __init__(self,k = 0, U = [], E = [], T = [], location = [] ,social_active_probabilities = [],event_attendance_probability = [] ,competing_event_attendance_probability = []):
 		

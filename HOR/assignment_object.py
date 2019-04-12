@@ -1,5 +1,5 @@
 
-class Assignment :
+class Assignment:
 
 	def __init__(self, time_interval = "", event = "", score = 0, location = None, valid = True, update = True):
 		
@@ -10,7 +10,7 @@ class Assignment :
 		self.valid = valid
 		self.update = update
 
-class List_timeInt :
+class List_timeInt:
 
 	def __init__(self, time_interval = None, l = [], update = True):
 		

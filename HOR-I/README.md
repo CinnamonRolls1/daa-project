@@ -1,4 +1,4 @@
-##Assignment Object
+## Assignment Object
 `self.time_interval` = index of time_interval in `self.T`
 `self.event` =  index of event in `self.E` 
 `self.score` = float value that stores expected attendance
@@ -6,9 +6,9 @@
 `self.valid` = Stores  *True* if it is valid assignment else *False*
 `self.update` = *True* if it is updated *False* if  it is yet to be update
 
-##Class HOR_I
+## Class HOR_I
 
-###Variables
+### Variables
 
 `self.k` = no of events tat have to be scheduled
 
@@ -40,7 +40,7 @@
 
 `self.bound` = stores value of `Assignment()` 
 
-###Methods
+### Methods
 
 hor_i() :
 runs until |`self.S`| >= `self.k`

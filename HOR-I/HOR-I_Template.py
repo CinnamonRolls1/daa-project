@@ -41,11 +41,26 @@ class HOR_I(HOR) :
 
 #---------------------------INCREMENTAL ASSIGNMENTS UPDATING-----------------------------------------
 
-	def inc_assgnmnt_update(self, time_interval) : #line 10-20 .time interval is an index in self.T
+	def inc_assgnmnt_update(self, time_interval, top_assignment) : #line 10-20 .time interval is an index in self.T
 		#calls getBetterAssignment which is inherited. please do not redefine.
 		#completely remove t_a_e from self.L_i for line 19 
 		#M[i] = phi as in not just the score value but  the assignment . phi is always an assignment object
-		pass
+		
+		self.bound.score=0     #Initializing bound as 0
+		j=0
+		while j < len(self.L_i[time_interval].l):  #For all assignments residing in L_i[i]
+			if self.L_i[time_interval].l[j].valid==True:
+				if self.L_i[time_interval].l[j].score >= self.bound.score:
+					self.update_score(self.L_i[time_interval].l[j],top_assignment)
+					self.L_i[time_interval].l[j].update == True
+					self.bound = self.getBetterAssignment(self.bound,self.L_i[time_interval].l[j])
+				else:
+					self.L_i[time_interval].l[j].update == False
+			else:
+				self.L_i[time_interval].l.pop(j)
+			j=j+1
+		self.M[time_interval]=self.bound
+		
 #----------------------------------------------------------------------------------------------------------------
 
 

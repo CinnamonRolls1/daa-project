@@ -21,6 +21,7 @@ hor_object = HOR(3, U, E , T , location ,sigma,mu_E,mu_C)
 #hor_object.status_log(hor_object.L_i[1])
 
 hor_object.hor_algorithm()
-
+#hor_object.status_log()
+#hor_object.status_log(hor_object.S)
 
 

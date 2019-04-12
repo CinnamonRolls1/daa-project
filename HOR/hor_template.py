@@ -52,7 +52,7 @@ class HOR(SES) :
 				x.score = self.score(x.event, x.time_interval, self.S+[x])
 				#print("out of range error val: ",i[1])
 				self.L_i[i[1]].append(x)
-				if self.M[i[1]]== None:
+				if self.M[i[1]].event == "":
 					self.M[i[1]] = x
 				self.M[i[1]] = self.getBetterAssignment(self.M[i[1]],x)
 
@@ -65,12 +65,12 @@ class HOR(SES) :
 		top=None
 		index=None
 		for i in range(len(self.M)):
-			if(self.M[i] == None):
+			if(self.M[i].event  == ""):
 				continue
 			elif((top == None) or (top.score < self.M[i].score)):
 				top=self.M[i]
 				index=i
-		self.M[index]=None
+		self.M[index] = Assignment()
 
 		return top
 
@@ -78,6 +78,8 @@ class HOR(SES) :
 
 	def select_update_assgn(self) : #line 9-14
 		for i in range(len(self.M)):
+
+			self.status_log(self.S)
 
 			if(len(self.S) >= self.k):
 				break
@@ -125,13 +127,13 @@ class HOR(SES) :
 
 		while(len(self.S)<self.k):
 
+			self.status_log()
+
 			self.generate_assignment()
 
 			self.select_update_assgn()
 			
-		print("event","\t","time_interval","\t","location")
-		for i in self.S:
 
-			print(i.event,"\t",i.time_interval,"\t\t",i.location)
+
 
 

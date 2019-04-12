@@ -54,4 +54,4 @@ has the top score assignment of each time interval
 `def not_belongs_to_S(param):`
   
 `def hor_algorithm():`  
-  its the binding fucntion which runs the overall algoirithm
+  its the binding fucntion which runs the overall algoirithm. It resets `self.M` and calls  `generate assignments` and calls `select_update assignments`. The algorithm loop terminate when |`self.S`| gets filled with `self.k` no of candidate events.

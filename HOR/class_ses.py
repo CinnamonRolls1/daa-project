@@ -15,6 +15,7 @@ class SES :
 
 	def __init__(self,k = 0, U = [], E = [], T = [], location = [] ,social_active_probabilities = [],event_attendance_probability = [] ,competing_event_attendance_probability = []):
 		
+		
 		self.k = k
 		self.U = U
 		self.E = E

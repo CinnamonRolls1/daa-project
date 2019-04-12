@@ -61,6 +61,7 @@ Removes Top assignment from list `L_i[ ]`. And makes update status False for all
 Returns assignment from `self.M` with the highest `score` value.
   
 `def update_assignments():`
+  updates validity of assignments in `L_i[]` and also updates the score of the assignments in `L_i[]`, `self.M` and score of `bound`. Also updates the validity for each time-interval in the `L_i[]` list
   
 `def get_top_assignment():`   
 Returns assignment from `self.A` with the highest `score` value and `valid` set to True. 

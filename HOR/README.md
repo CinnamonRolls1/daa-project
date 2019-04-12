@@ -3,59 +3,59 @@
 ## Variables
 
 `self.k`  
-no of events to be assigned
+Number of events to be assigned
 
 `self.U`  
-lists of users 
+Lists of users 
 
 `self.E`   
-list of events
+List of events
 
 `self.T`  
-list of time intervals
+List of time intervals
 
 `self.location`  
 Location
 
 `self.sigma`  
-social\_active\_probabilities ???
+Social active probabilities
 
 `self.mu_E`   
-event\_attendance\_probability ???
+Event attendance probability 
 
 `self.mu_C`   
-competing\_event\_attendance\_probability ???
+Competing event attendance probability 
 
 
 `self.A` 
-list of all possible assignments
+List of all possible assignments
 
 `self.S` 
-schedule set
+Schedule set
 
 `self.L_i`  
-list of assignemnt lit in each time interval
+List of assignemnt lit in each time interval
 
 `self.M`                   
-has the top score assignment of each time interval
+Has the top score assignment of each time interval
 
 
 ## Functions
-`def getAssign(e,time):`
-  returns an existing assignment within `self.A` correlating to an event and time-interval that are given as arguments 
+`def getAssign(e,time):`  
+  Returns an existing assignment within `self.A` correlating to an event and time-interval that are given as arguments 
 
-`def generate_assignment():`  
-  initializes `self.A` with all possible assignments and their respective scores
-  initilazes `self.M` and `self.L_i` 
+`def generate_assignment():`    
+  Initializes `self.A` with all possible assignments and their respective scores
+  Initilazes `self.M` and `self.L_i` 
   
-`def popTopAssgn():`  
+`def popTopAssgn():`    
 Pops top assignment from list `M`.
   
-`def select_update_assgn():`
+`def select_update_assgn():`  
 modifies the lists `S` and `M` according to the Algorithm.
 
-`def not_belongs_to_S(param):`
+`def not_belongs_to_S(param):`  
 It returns `True` if param doesnt belongs to List `S`.
   
-`def hor_algorithm():`  
-  its the binding fucntion which runs the overall algoirithm. It resets `self.M` and calls  `generate assignments` and calls `select_update assignments`. The algorithm loop terminate when |`self.S`| gets filled with `self.k` no of candidate events.
+`def hor_algorithm():`    
+  It's the binding fucntion which runs the overall algoirithm. It resets `self.M` and calls  `generate assignments` and calls `select_update assignments`. The algorithm loop terminate when `self.S` gets filled with `self.k` no of candidate events.

@@ -20,7 +20,7 @@ class HOR_I(HOR) :
 
 	
 #-------------------------------------ALGORITHM---------------------------
-	def hor_i__algo() :
+	def hor_i__algo(self) :
 
 		while(len(self.S) < self.k) :
 
@@ -97,6 +97,7 @@ class HOR_I(HOR) :
 					self.inc_assgnmnt_update(tp.time_interval)
 
 	
-
+obj=HOR_I()
+obj.hor_i__algo()
 
 

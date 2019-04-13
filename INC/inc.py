@@ -233,7 +233,23 @@ class INC:
 						break
 				if temp==0:
 					self.L_i[i].update=True
+				
 
+
+		for i in range(len(self.M)):
+			#max = Assignment()
+			print("M[i] = ", self.print_assignment(self.M[i]))
+
+
+			for j in range(len(self.L_i[i].l)):
+
+				print("L_i.l= ",self.print_assignment(self.L_i[i].l[j]) )
+
+				if self.L_i[i].l[j].valid == True and self.L_i[i].l[j].update == True :
+
+					self.M[i] = self.getBetterAssignment(self.M[i],self.L_i[i].l[j])
+
+					
 		self.print_updated_assignments(update_assignment_list)
 
 	#-----------------------------------------------------------------------
@@ -249,7 +265,7 @@ class INC:
 			array=self.A
 		
 		for i in array:
-			if (i.score > max_assignment.score) and i.valid==True:
+			if (i.score > max_assignment.score) and (i.valid==True) and (i.update == True):
 				max_assignment = i
 
 
@@ -272,7 +288,7 @@ class INC:
 		self.status_log(self.A)
 	
 		for i in range(self.k) :	
-			top_assignment = self.get_top_assignment()
+			top_assignment = self.get_top_assignment(self.M)
 
 			print("top_assignment: ",self.E[top_assignment.event], self.T[top_assignment.time_interval])
 

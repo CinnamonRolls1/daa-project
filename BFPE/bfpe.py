@@ -37,7 +37,7 @@ def generator(n):
 	li=0
 
 
-	for I in range(n):
+	while e<=n:
 
 		u+=random.randint(1,4) #u should preferably grow fastest
 		
@@ -66,25 +66,30 @@ def generator(n):
 
 
 		#generating sigma
-		for sig in sigma:
-			for i in range(len(sig),len(T)):
-				sig.append(round(random.uniform(0,1),1))
+		for k in range(len(sigma)):
+			for i in range(len(sigma[k]),len(T)):
+				sigma[k].append(round(random.uniform(0,1),1))
+				mu_E[k].append(round(random.uniform(0,1),1))
+				mu_C[k].append(round(random.uniform(0,1),1)) 
 		for i in range(len(sigma),len(U)):
 			sigma.append([round(random.uniform(0,1),1) for k in range(len(T))])
+			mu_E.append([round(random.uniform(0,1),1) for k in range(len(T))])
+			mu_C.append([round(random.uniform(0,1),1) for k in range(len(T))])
+
 
 		#generating mu_E
-		for mu_Ei in mu_E:
-			for i in range(len(mu_Ei),len(T)):
-				mu_Ei.append(round(random.uniform(0,1),1)) 
-		for i in range(len(mu_E),len(T)):
-			mu_E.append([round(random.uniform(0,1),1) for k in range(len(T))])
+		#for mu_Ei in mu_E:
+		#	for i in range(len(mu_Ei),len(T)):
+		#		mu_Ei.append(round(random.uniform(0,1),1)) 
+		#for i in range(len(mu_E),len(T)):
+		#	mu_E.append([round(random.uniform(0,1),1) for k in range(len(T))])
 
 		#generating mu_C
-		for mu_Ci in mu_C:
-			for i in range(len(mu_Ci),len(T)):
-				mu_Ci.append(round(random.uniform(0,1),1)) 
-		for i in range(len(mu_C),len(T)):
-			mu_C.append([round(random.uniform(0,1),1) for k in range(len(T))])
+		#for mu_Ci in mu_C:
+		#	for i in range(len(mu_Ci),len(T)):
+		#		mu_Ci.append(round(random.uniform(0,1),1)) 
+		#for i in range(len(mu_C),len(T)):
+		#	mu_C.append([round(random.uniform(0,1),1) for k in range(len(T))])
 
 
 		print("K:",K)
@@ -95,6 +100,7 @@ def generator(n):
 		print("Sigma:", sigma)
 		print("mu_E:", mu_E)
 		print("mu_C:", mu_C)
+		print("---------------------------------------------------------")
 
 		
 

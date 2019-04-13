@@ -1,6 +1,5 @@
 from inc import INC
 
-
 U = ['u1','u2']
 S = []
 A = []
@@ -18,5 +17,7 @@ inc_object = INC(3, U, E , T , location ,sigma,mu_E,mu_C)
 inc_object.generate_assignment()
 
 inc_object.INC_algo()
+
+
 
 

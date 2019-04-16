@@ -5,7 +5,8 @@ sys.path.insert(0, '../imports')
 from imports import Assignment
 
 from imports import List_timeInt
-from imports import HOR
+sys.path.insert(0,'../HOR')
+from hor import HOR
 
 sys.path.insert(0,'../HOR_I')
 

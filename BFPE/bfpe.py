@@ -103,11 +103,8 @@ def generator(n):
 		gre_object = GRE(U, E , T , L ,sigma,mu_E,mu_C)
 
 		#inc_object.generate_assignment()
-		print("__________SCHEDULE SET____________")
 		gre_object.greedy_alg(K)
-		print("SCHEDULE: ",gre_object.S)
 
-		print("---------------------------------------------------------")
 		
 
 		

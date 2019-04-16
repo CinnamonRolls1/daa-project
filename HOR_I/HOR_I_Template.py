@@ -11,7 +11,7 @@ from itertools import product
 from operator import attrgetter
 from hor import HOR
 
-sys.path.insert(0,'../Greedy')
+sys.path.insert(0,'../HOR_I')
 #-------------------------------------------------------------------------------------------------
 
 #--------------------------------GUIDELINES-------------------

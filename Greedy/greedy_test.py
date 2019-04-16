@@ -2,7 +2,7 @@
 #-------------------IMPORTING LIBRARIES-------------
 import sys
 sys.path.insert(0, '../imports')
-from assignment_object import Assignment
+from assignment_objectg import Assignment
 sys.path.insert(0,'../Greedy')
 from itertools import product
 from operator import attrgetter

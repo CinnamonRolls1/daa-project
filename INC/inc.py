@@ -8,6 +8,8 @@ from assignment_object import List_timeInt
 
 from itertools import product
 from operator import attrgetter
+sys.path.insert(0,'../INC')
+
 #-------------------------------------------------------------------------------------------------
 
 #--------------------------------GUIDELINES-------------------

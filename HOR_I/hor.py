@@ -11,7 +11,7 @@ from operator import attrgetter
 sys.path.insert(0, '../imports')
 from class_ses import SES
 
-sys.path.insert(0,'../Greedy')
+sys.path.insert(0,'../HOR_I')
 #-------------------------------------------------------------------------------------------------
 
 

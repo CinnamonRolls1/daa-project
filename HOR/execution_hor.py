@@ -5,7 +5,7 @@ from class_ses import SES
 
 from hor import HOR
 
-sys.path.insert(0,'../Greedy')
+sys.path.insert(0,'../HOR')
 
 U = ['u1','u2']
 S = []

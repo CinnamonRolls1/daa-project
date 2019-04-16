@@ -1,5 +1,11 @@
+import sys
+
+sys.path.insert(0, '../imports')
 from class_ses import SES
+
 from hor import HOR
+
+sys.path.insert(0,'../Greedy')
 
 U = ['u1','u2']
 S = []

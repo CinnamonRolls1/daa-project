@@ -1,6 +1,11 @@
 #------------------------------------IMPORT LIBRARIES--------------------------------------------
+import sys
+sys.path.insert(0, '../imports')
 from assignment_object import Assignment
+
+sys.path.insert(0, '../imports')
 from assignment_object import List_timeInt
+
 from itertools import product
 from operator import attrgetter
 #-------------------------------------------------------------------------------------------------

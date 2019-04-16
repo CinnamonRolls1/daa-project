@@ -2,10 +2,10 @@ import sys
 
 sys.path.insert(0, '../imports')
 from imports import SES
-
-from imports import HOR
-
 sys.path.insert(0,'../HOR')
+from hor import HOR
+
+
 
 U = ['u1','u2']
 S = []

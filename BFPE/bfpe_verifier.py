@@ -69,25 +69,25 @@ def generator(n):
 
 		for k in range(len(sigma)):
 			for i in range(len(sigma[k]),len(T)):
-				sigma[k].append(round(random.uniform(0,1),1))
+				sigma[k].append(round(random.uniform(0.1,1),1))
 
 		for k in range(len(mu_C)):
 			for i in range(len(mu_C[k]),len(T)):
-				mu_C[k].append(round(random.uniform(0,1),1)) 
+				mu_C[k].append(round(random.uniform(0.1,1),1)) 
 
 		for k in range(len(mu_E)):
 			for i in range(len(mu_E[k]),len(E)):
-				mu_E[k].append(round(random.uniform(0,1),1))
+				mu_E[k].append(round(random.uniform(0.1,1),1))
 				
 
 		for i in range(len(sigma),len(U)):
-			sigma.append([round(random.uniform(0,1),1) for k in range(len(T))])
+			sigma.append([round(random.uniform(0.1,1),1) for k in range(len(T))])
 
 		for i in range(len(mu_C),len(U)):
-			mu_C.append([round(random.uniform(0,1),1) for k in range(len(T))])
+			mu_C.append([round(random.uniform(0.1,1),1) for k in range(len(T))])
 
 		for i in range(len(mu_E),len(U)):
-			mu_E.append([round(random.uniform(0,1),1) for k in range(len(E))])
+			mu_E.append([round(random.uniform(0.1,1),1) for k in range(len(E))])
 		
 
 

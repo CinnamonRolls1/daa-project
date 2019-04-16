@@ -46,7 +46,7 @@ def generator(n):
 		
 		t+=random.randint(1,e_inc) #t should preferably grow slower than e
 		
-		l+=random.randint(1,e_inc) #l should preferably grow at a pace similar to t
+		l+=e_inc #l should preferably grow at a pace similar to t
 		
 		K+=random.randint(1,e_inc) #k should always be less than e
 
@@ -82,7 +82,7 @@ def generator(n):
 		for i in range(len(sigma),len(U)):
 			sigma.append([round(random.uniform(0,1),1) for k in range(len(T))])
 
-		for i in range(len(mu_C),len(T)):
+		for i in range(len(mu_C),len(U)):
 			mu_C.append([round(random.uniform(0,1),1) for k in range(len(T))])
 
 		for i in range(len(mu_E),len(U)):
@@ -105,14 +105,14 @@ def generator(n):
 		#	mu_C.append([round(random.uniform(0,1),1) for k in range(len(T))])
 
 
-		print("K:",K)
-		print("U:",U)
-		print("E:",E)
-		print("T:",T)
-		print("L:",L)
-		print("Sigma:", sigma)
-		print("mu_E:", mu_E)
-		print("mu_C:", mu_C)
+		print("K=",K)
+		print("U=",U)
+		print("E=",E)
+		print("T=",T)
+		print("L=",L)
+		print("Sigma=", sigma)
+		print("mu_E=", mu_E)
+		print("mu_C=", mu_C)
 
 		file_name = str("input_set_") + str(f)
 

@@ -17,77 +17,20 @@ sys.path.insert(0, '../BFPE')
 
 
 
-file = open("input_set_0.txt", "r")
-k =  int(file.read(1))
-file.read(1)
-U = list(file.readline().split(' '))
-U = U[:-1]
-#print(U)
-E = list(file.readline().split(' '))
-E = E[:-1]
-T = list(file.readline().split(' '))
-T = T[:-1]
-L = list(file.readline().split(' '))
-L = L[:-1]
 
-print(E)
-print(T)
-print(L)
-print(U)
-print(k)
-sigma = []
-
-mu_E = []
-temp = list(file.readline().split(' '))
-temp = temp[:-1]
-temp = list(map(float,temp))
-print(temp)
-
-for i in range(len(U)) :
-
-	sigma.append([])
-
-
-	for j in  range(len(T)) :
-		sigma[i].append(temp[j])
-
-
-for i in range(len(U)) :
-
-	mu_E.append([])
-
-	for j in  range(len(E)) :
-		mu_E[i].append(temp[j])
-
-mu_C = []
-
-for i in range(len(U)) :
-
-	mu_C.append([])
-	temp = list(file.readline().split(' '))
-	temp = temp[:-1]
-	temp = list(map(float,temp))
-
-	for j in  range(len(T)) :
-		mu_C[i].append(temp[j])
-
-print(sigma)
-print(mu_E)
-print(mu_C)
+K= 4
+U= ['u0', 'u1', 'u2', 'u3', 'u4', 'u5', 'u6']
+E= ['e0', 'e1', 'e2', 'e3', 'e4', 'e5', 'e6']
+T= ['t0', 't1', 't2', 't3', 't4']
+L= ['loc0', 'loc1', 'loc2', 'loc3', 'loc4', 'loc5', 'loc6']
+Sigma= [[0.4, 0.9, 0.7, 0.9, 0.9], [0.3, 0.6, 0.2, 0.7, 0.6], [0.0, 0.5, 0.4, 0.3, 1.0], [0.5, 0.4, 0.0, 0.8, 1.0], [1.0, 0.8, 0.5, 0.6, 0.3], [0.9, 0.3, 0.3, 0.2, 0.8], [0.4, 0.3, 0.5, 0.1, 0.5]]
+mu_E= [[0.5, 0.1, 0.3, 0.2, 0.8, 0.6, 0.1], [0.4, 0.3, 0.2, 0.4, 0.8, 0.4, 0.4], [0.5, 1.0, 0.9, 1.0, 0.7, 0.8, 0.2], [0.5, 1.0, 0.8, 0.5, 0.7, 0.8, 0.9], [1.0, 0.5, 0.9, 0.7, 0.7, 0.4, 0.5], [0.2, 0.7, 0.9, 0.6, 0.4, 0.8, 0.5], [0.6, 0.3, 0.1, 0.6, 0.0, 0.5, 0.9]]
+mu_C= [[0.8, 0.0, 0.2, 0.8, 0.0], [0.7, 0.2, 0.3, 0.1, 0.7], [0.1, 0.6, 0.7, 0.7, 0.1], [0.7, 0.3, 1.0, 0.2, 0.3], [0.1, 0.1, 0.0, 0.4, 0.6], [0.6, 0.7, 0.9, 0.5, 0.1], [1.0, 0.7, 0.3, 0.9, 0.6]]
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-gre_object = GRE(U, E , T , L ,sigma,mu_E,mu_C)
+gre_object = GRE(U, E , T , L ,Sigma,mu_E,mu_C)
+gre_object.greedy_alg(K)

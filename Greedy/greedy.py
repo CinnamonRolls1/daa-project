@@ -14,16 +14,16 @@ class GRE:
         #-------------------------------DATA AND GLOBAL VARIABLES---------------------------
 
         def __init__(self,U = [],E = [],T = [],location = [],sigma = [],mu_E = [],mu_C = []):
-                self.U = U
+                self.U = U[:]
                 self.S = []
                 self.A = []
-                self.E = E
-                self.T = T
-                self.location = location
+                self.E = E[:]
+                self.T = T[:]
+                self.location = location[:]
 
-                self.sigma = sigma
-                self.mu_E = mu_E
-                self.mu_C = mu_C
+                self.sigma = sigma[:]
+                self.mu_E = mu_E[:]
+                self.mu_C = mu_C[:]
 
         #-------------------------------------------------------------------------------------
 
@@ -47,6 +47,7 @@ class GRE:
         def prob_e_t_u(self,event, time_interval, u, S) :
 
                 #print("for user ",self.U[u])
+                #print("Schedule Set: ",list(map(lambda x: x.event, S)),"\n")
 
                 mu_u_e = self.mu_E[u][event]
 
@@ -57,10 +58,14 @@ class GRE:
                 #print("sigma_u_t: ",sigma_u_t)
 
                 mu_u_c = 0
+                #print(u)
+                #print(self.mu_C)
                 for c in range(len(self.mu_C[u])) :
 
                         if c == time_interval :
+                                #print("inside loop")
                                 mu_u_c += self.mu_C[u][c]
+                                #print("inside mu_u_c",self.mu_C[u][c])
 
                 #print("mu_u_c: ",mu_u_c)
 
@@ -68,15 +73,19 @@ class GRE:
                 for p in S :
 
                         if p.time_interval == time_interval :
-                                mu_u_p += self.mu_E[u][p.event]
 
+                                mu_u_p += self.mu_E[u][p.event]
+                                #print("inside mu_u_p", self.mu_E[u][p.event])
+
+                
                 #print("mu_u_p: ",mu_u_p)
+                #print("mu_u_c: ",mu_u_c)
 
                 p = sigma_u_t * (mu_u_e / (mu_u_c + mu_u_p))
 
                 #print("p: ",p)
 
-                #print()
+                #print("\n")
 
                 return p
 
@@ -139,6 +148,7 @@ class GRE:
 
 
                 c=list(product(events,time_intervals))
+                #print(c)
 
                 for i in c :
 

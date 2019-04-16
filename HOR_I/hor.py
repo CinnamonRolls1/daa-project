@@ -6,7 +6,10 @@ from imports import Assignment
 from imports import List_timeInt
 from imports import SES
 
-sys.path.insert(0,'../HOR_I')
+sys.path.insert(0, '../HOR')
+from hor import HOR
+sys.path.insert(0, '../HOR_I')
+
 
 from itertools import product
 from operator import attrgetter

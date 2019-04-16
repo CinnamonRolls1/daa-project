@@ -65,7 +65,6 @@ def generator(n):
 		li=l
 
 
-		#generating sigma
 		for k in range(len(sigma)):
 			for i in range(len(sigma[k]),len(T)):
 				sigma[k].append(round(random.uniform(0,1),1))
@@ -90,21 +89,6 @@ def generator(n):
 		
 
 
-		#generating mu_E
-		#for mu_Ei in mu_E:
-		#	for i in range(len(mu_Ei),len(T)):
-		#		mu_Ei.append(round(random.uniform(0,1),1)) 
-		#for i in range(len(mu_E),len(T)):
-		#	mu_E.append([round(random.uniform(0,1),1) for k in range(len(T))])
-
-		#generating mu_C
-		#for mu_Ci in mu_C:
-		#	for i in range(len(mu_Ci),len(T)):
-		#		mu_Ci.append(round(random.uniform(0,1),1)) 
-		#for i in range(len(mu_C),len(T)):
-		#	mu_C.append([round(random.uniform(0,1),1) for k in range(len(T))])
-
-
 		print("K:",K)
 		print("U:",U)
 		print("E:",E)
@@ -116,12 +100,12 @@ def generator(n):
 
 		
 
-		'''gre_object = GRE(U, E , T , L ,sigma,mu_E,mu_C)
+		gre_object = GRE(U, E , T , L ,sigma,mu_E,mu_C)
 
 		#inc_object.generate_assignment()
 		print("__________SCHEDULE SET____________")
 		gre_object.greedy_alg(K)
-		print("SCHEDULE: ",gre_object.S)'''
+		print("SCHEDULE: ",gre_object.S)
 
 		print("---------------------------------------------------------")
 		

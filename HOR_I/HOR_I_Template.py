@@ -2,16 +2,16 @@
 
 import sys
 sys.path.insert(0, '../imports')
-from assignment_object import Assignment
+from imports import Assignment
 
-sys.path.insert(0, '../imports')
-from assignment_object import List_timeInt
+from imports import List_timeInt
+from imports import HOR
+
+sys.path.insert(0,'../HOR_I')
 
 from itertools import product
 from operator import attrgetter
-from hor import HOR
 
-sys.path.insert(0,'../HOR_I')
 #-------------------------------------------------------------------------------------------------
 
 #--------------------------------GUIDELINES-------------------

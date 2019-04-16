@@ -1,14 +1,13 @@
 #------------------------------------IMPORT LIBRARIES--------------------------------------------
 import sys
 sys.path.insert(0, '../imports')
-from assignment_object import Assignment
+from imports import Assignment
 
-sys.path.insert(0, '../imports')
-from assignment_object import List_timeInt
-
+from imports import List_timeInt
+sys.path.insert(0,'../INC')
 from itertools import product
 from operator import attrgetter
-sys.path.insert(0,'../INC')
+
 
 #-------------------------------------------------------------------------------------------------
 

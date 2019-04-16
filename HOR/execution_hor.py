@@ -1,9 +1,9 @@
 import sys
 
 sys.path.insert(0, '../imports')
-from class_ses import SES
+from imports import SES
 
-from hor import HOR
+from imports import HOR
 
 sys.path.insert(0,'../HOR')
 

@@ -1,6 +1,8 @@
-from class_ses import SES
-from hor import HOR
-
+import sys
+sys.path.insert(0, '../imports')
+from imports import SES
+from imports import HOR
+sys.path.insert(0, '../imports')
 U = ['u1','u2']
 S = []
 A = []
@@ -21,8 +23,7 @@ hor_object = HOR(3, U, E , T , location ,sigma,mu_E,mu_C)
 #hor_object.status_log(hor_object.L_i[1])
 
 hor_object.hor_algorithm()
-hor_object.status_log()
-hor_object.status_log(hor_object.S)
-
+#hor_object.status_log()
+#hor_object.status_log(hor_object.S)
 
 

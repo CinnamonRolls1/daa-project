@@ -114,7 +114,55 @@ def generator(n):
 		print("mu_E:", mu_E)
 		print("mu_C:", mu_C)
 
-		
+		file_name = str("input_set_") + str(f)
+
+		file = open(file_name + ".txt", "w")
+
+		file.write(str(K))
+		file.write("\n")
+
+		for i in U :
+			file.write(str(i)+' ')
+		file.write("\n")
+
+		for i in E :
+			file.write(str(i)+ ' ')
+		file.write("\n")
+
+		for i in T :
+			file.write(str(i)+  ' ')
+		file.write("\n")
+
+		for i in L :
+			file.write(str(i)+ ' ')
+		file.write("\n")
+
+		for i in range(len(sigma)) :
+
+			for j in range(len(sigma[i])) :
+
+				file.write(str(sigma[i][j])+  ' ')
+
+		file.write("\n")
+
+		for i in range(len(mu_E)) :
+
+			for j in range(len(mu_E[i])) :
+
+				file.write(str(mu_E[i][j])+ ' ')
+				
+		file.write("\n")
+
+		for i in range(len(mu_C)) :
+
+			for j in range(len(mu_C[i])) : 
+
+				file.write(str(mu_C[i][j])+ ' ')
+				
+		file.write("\n")
+
+		file.close()
+
 
 		'''gre_object = GRE(U, E , T , L ,sigma,mu_E,mu_C)
 
@@ -124,7 +172,7 @@ def generator(n):
 		print("SCHEDULE: ",gre_object.S)'''
 
 		print("---------------------------------------------------------")
-		
+		f+=1
 
 		
 

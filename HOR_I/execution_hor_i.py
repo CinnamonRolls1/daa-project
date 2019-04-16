@@ -2,7 +2,7 @@ import sys
 sys.path.insert(0, '../imports')
 from imports import SES
 sys.path.insert(0,'../HOR')
-from hor import HOR
+from hor_i import HOR_I
 sys.path.insert(0,'../HOR_I')
 K=3
 U = ['u1','u2']
@@ -17,7 +17,7 @@ mu_E = [[0.9, 0.3, 0, 0.6],[0.2, 0.6, 0.1, 0.6]]
 mu_C = [[0.8, 0.3],[0.4, 0.7]]
 
 
-hor_object = HOR(K, U, E , T , L,Sigma,mu_E,mu_C)
+hor_object = HOR_I(K, U, E , T , L,Sigma,mu_E,mu_C)
 
 #hor_object.generate_assignment()
 #hor_object.status_log()

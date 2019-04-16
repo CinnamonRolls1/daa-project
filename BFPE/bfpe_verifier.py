@@ -91,14 +91,14 @@ def generator(n):
 		
 
 
-		print("K:",K)
-		print("U:",U)
-		print("E:",E)
-		print("T:",T)
-		print("L:",L)
-		print("Sigma:", sigma)
-		print("mu_E:", mu_E)
-		print("mu_C:", mu_C)
+		print("K=",K)
+		print("U=",U)
+		print("E=",E)
+		print("T=",T)
+		print("L=",L)
+		print("Sigma=", sigma)
+		print("mu_E=", mu_E)
+		print("mu_C=", mu_C)
 
 		inputs={
 			"K:":K,

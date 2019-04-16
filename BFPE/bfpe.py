@@ -36,7 +36,7 @@ def generator(n):
 	ti=0
 	li=0
 
-
+	f = 0 
 	while e<=n:
 
 		u+=random.randint(1,4) #u should preferably grow fastest
@@ -69,12 +69,15 @@ def generator(n):
 		for k in range(len(sigma)):
 			for i in range(len(sigma[k]),len(T)):
 				sigma[k].append(round(random.uniform(0,1),1))
+		for k in range(len(mu_E)):
+			for i in range(len(sigma[k]),len(E)):
 				mu_E[k].append(round(random.uniform(0,1),1))
-				mu_C[k].append(round(random.uniform(0,1),1)) 
+				mu_C[K].append(round(random.uniform(0,1),1)) 
 		for i in range(len(sigma),len(U)):
 			sigma.append([round(random.uniform(0,1),1) for k in range(len(T))])
-			mu_E.append([round(random.uniform(0,1),1) for k in range(len(T))])
-			mu_C.append([round(random.uniform(0,1),1) for k in range(len(T))])
+		for i in range(len(mu_E),len(E)):	
+			mu_E.append([round(random.uniform(0,1),1) for k in range(len(E))])
+			mu_C.append([round(random.uniform(0,1),1) for k in range(len(E))])
 
 
 		#generating mu_E
@@ -100,15 +103,69 @@ def generator(n):
 		print("Sigma:", sigma)
 		print("mu_E:", mu_E)
 		print("mu_C:", mu_C)
+
+		file_name = str("input_set_") + str(f)
+
+		file = open(file_name + ".txt", "w")
+
+		file.write(str(K))
+		file.write("\n")
+
+		for i in U :
+			file.write(str(i)+' ')
+		file.write("\n")
+
+		for i in E :
+			file.write(str(i)+ ' ')
+		file.write("\n")
+
+		for i in T :
+			file.write(str(i)+  ' ')
+		file.write("\n")
+
+		for i in L :
+			file.write(str(i)+ ' ')
+		file.write("\n")
+
+		for i in range(len(sigma)) :
+
+			for j in range(len(sigma[i])) :
+
+				file.write(str(sigma[i][j])+  ' ')
+
+		file.write("\n")
+
+		for i in range(len(mu_E)) :
+
+			for j in range(len(mu_E[i])) :
+
+				file.write(str(mu_E[i][j])+ ' ')
+				
+		file.write("\n")
+
+		for i in range(len(mu_C)) :
+
+			for j in range(len(mu_C[i])) : 
+
+				file.write(str(mu_C[i][j])+ ' ')
+				
+		file.write("\n")
+
+		file.close()
+
+
+		'''gre_object = GRE(U, E , T , L ,sigma,mu_E,mu_C)
+
+		#inc_object.generate_assignment()
+		print("__________SCHEDULE SET____________")
+		gre_object.greedy_alg(K)
+		print("SCHEDULE: ",gre_object.S)'''
+
 		print("---------------------------------------------------------")
+		f+=1
 
 		
 
-		#inc_object = HOR(K, U, E , T , L ,sigma,mu_E,mu_C)
-
-		#inc_object.generate_assignment()
-
-		#inc_object.hor_algorithm()
 
 
 

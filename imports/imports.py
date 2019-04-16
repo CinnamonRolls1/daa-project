@@ -1,9 +1,14 @@
 from itertools import product
 from operator import attrgetter
 
-def printer(info, flag=True,end='\n',flush=True):
-	if flag==True:
-		print(info,end=end,flush=flush)
+def printer(info, verbose=True,end='\n',flush=True):
+	if verbose==True:
+		if type(info)==tuple:
+			for item in info:
+				print(item, end=' ', flush=flush)
+			print(end=end)
+		else:
+			print(info,end=end,flush=flush)
 
 
 class Assignment :

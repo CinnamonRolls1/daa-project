@@ -1,6 +1,6 @@
 from class_ses import SES
-from hor import HOR
-
+from HOR_I_Template import HOR_I
+from HOR_I_Template import result
 U = ['u1','u2']
 S = []
 A = []
@@ -13,7 +13,7 @@ mu_E = [[0.9, 0.3, 0, 0.6],[0.2, 0.6, 0.1, 0.6]]
 mu_C = [[0.8, 0.3],[0.4, 0.7]]
 
 
-hor_object = HOR(3, U, E , T , location ,sigma,mu_E,mu_C)
+hor_object = HOR_I(3, U, E , T , location ,sigma,mu_E,mu_C)
 
 #hor_object.generate_assignment()
 #hor_object.status_log()
@@ -21,6 +21,7 @@ hor_object = HOR(3, U, E , T , location ,sigma,mu_E,mu_C)
 #hor_object.status_log(hor_object.L_i[1])
 
 hor_object.hor_algorithm()
+#result(hor_object)         #just for verfying the final Schedule
 #hor_object.status_log()
 #hor_object.status_log(hor_object.S)
 

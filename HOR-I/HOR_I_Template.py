@@ -34,6 +34,7 @@ class HOR_I(HOR) :
 
 
 			self.select_update_assgn()
+		return self.S
 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -72,7 +73,7 @@ class HOR_I(HOR) :
 			if(len(self.S) >= self.k):
 				break
 
-			ass=HOR.popTopAssgn()
+			ass=self.popTopAssgn()
 
 			eve=[i.event for i in self.S]
 			eve=list(filter(lambda z : z!=None,eve))
@@ -98,6 +99,11 @@ class HOR_I(HOR) :
 
 	
 obj=HOR_I()
-obj.hor_i__algo()
+s=obj.hor_i__algo()
+def result(ob):	
+	for i in ob.S:
+		#print("DAFS")
+		print("event","\t\t","time_interval","\t\t","location")
+		print(i.event,"\t\t",i.time_interval,"\t\t",i.location)
 
 

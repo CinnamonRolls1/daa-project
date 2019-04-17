@@ -13,6 +13,9 @@ from hor import HOR
 sys.path.insert(0, '../Greedy')
 from greedy import GRE
 
+sys.path.insert(0,'../HOR_I')
+from HOR_I_Template import HOR_I
+
 sys.path.insert(0, '../BFPE')
 
 
@@ -34,11 +37,28 @@ mu_C= [[0.9, 0.2, 0.8, 0.1, 0.1, 0.9, 0.3, 0.9, 0.3, 0.4, 0.3], [0.7, 0.8, 0.2, 
 
 
 
-'''gre_object = GRE(U, E , T , L ,Sigma,mu_E,mu_C)
-gre_object.greedy_alg(K)'''
+gre_object = GRE(U, E , T , L ,Sigma,mu_E,mu_C)
+gre_object.greedy_alg(K)
 
 inc_object = INC(K,U, E , T , L ,Sigma,mu_E,mu_C)
 inc_object.generate_assignment()
 inc_object.INC_algo()
-print("\n\n")
+
+
+hor_object = HOR(K,U, E , T , L ,Sigma,mu_E,mu_C)
+hor_object.hor_algorithm()
+
+hor_i_object = HOR_I(K,U, E , T , L ,Sigma,mu_E,mu_C)
+hor_i_object.hor_i__algo()
+
+
+
+print("\n\n\n")
+print("_________GREEDY ALGORITHM___________")
+gre_object.status_log(gre_object.S)
+print("\n_________INCREMENTAL UPDATE ALGORITHM___________")
 inc_object.status_log(inc_object.S)
+print("\n_________HORIZONTAL UPDATE ALGORITHM___________")
+hor_object.status_log(hor_object.S)
+print("\n_________HORIZONTAL INCREMENTAL UPDATE ALGORITHM___________")
+hor_i_object.status_log(hor_i_object.S)

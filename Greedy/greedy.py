@@ -205,14 +205,18 @@ class GRE:
 
         #------------------------------------------------------------------------------------------------------------
 
-        def status_log(self) :
+        def status_log(self,assignment_list = None) :
+
+                if assignment_list == None :
+                        assignment_list = self.A
 
                 print()
                 print()
+                print("-------------------------------------------------------------")
 
                 print("Event  Time Interval  Score  Location  Validity")
 
-                for i in self.A :
+                for i in assignment_list :
 
                         if len(str(i.score)) >= 5 :
 
@@ -222,6 +226,16 @@ class GRE:
                                 print(self.E[i.event], '   ', self.T[i.time_interval], '           ', '{:5}'.format(str(i.score)), '', '{:7}'.format(i.location), ' ', i.valid)
 
 
+                #print("Bound: ",self.print_assignment(self.bound), " ", self.bound.score)
+
+                #self.print_M()
+
+                #print("M: ", list(map(self.print_assignment,self.M)),"\n")
+                #print("L_1: ",list(map(self.print_assignment,self.L_i[0].l))," update: ",self.L_i[0].update)
+                #print("L_2: ", list(map(self.print_assignment,self.L_i[1].l))," update: ",self.L_i[1].update,"\n")
+
+
+                print("--------------------------------------------------------------")
                 print()
                 print()
 

@@ -51,7 +51,7 @@ class HOR_I(HOR) :
 
 #---------------------------INCREMENTAL ASSIGNMENTS UPDATING-----------------------------------------
 
-	def inc_assgnmnt_update(self, time_interval, top_assignment) : #line 10-20 .time interval is an index in self.T
+	def inc_assgnmnt_update(self, time_interval, top_assignment=None) : #line 10-20 .time interval is an index in self.T
 		#calls getBetterAssignment which is inherited. please do not redefine.
 		#completely remove t_a_e from self.L_i for line 19 
 		#M[i] = phi as in not just the score value but  the assignment . phi is always an assignment object

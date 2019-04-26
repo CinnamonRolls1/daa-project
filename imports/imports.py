@@ -152,7 +152,7 @@ class SES :
 
 		return p
 
-	def update_score(self,assignment,best_assignment) :
+	def update_score(self,assignment,best_assignment=None) :
 
 		new_score = 0 
 		old_score = 0

@@ -2,7 +2,7 @@
 import sys
 
 sys.path.insert(0, '../imports')
-from imports import Assignment
+from imports import Assignment, printer
 
 from imports import List_timeInt
 from imports import SES
@@ -17,11 +17,12 @@ from operator import attrgetter
 
 class HOR(SES) :
 
-	def __init__(self,k = 0, U = [], E = [], T = [], location = [] ,social_active_probabilities = [],event_attendance_probability = [] ,competing_event_attendance_probability = []):
+	def __init__(self,k = 0, U = [], E = [], T = [], location = [] ,social_active_probabilities = [],event_attendance_probability = [] ,competing_event_attendance_probability = [],verbose=True):
 		
 		super().__init__(k , U , E , T , location  ,social_active_probabilities ,event_attendance_probability ,competing_event_attendance_probability )
 
 		self.L_i = [[] for i in self.T]
+		self.verbose=verbose
 
 
 	#-------------------------------GENERATE ASSIGNEMENT LIST------------------------------
@@ -56,7 +57,7 @@ class HOR(SES) :
 			self.print_assignment(x)
 			if x.valid == True:
 				x.score = self.score(x.event, x.time_interval, self.S+[x])
-				#print("out of range error val: ",i[1])
+				#printer("out of range error val: ",i[1])
 				self.L_i[i[1]].append(x)
 				if self.M[i[1]].event == "":
 					self.M[i[1]] = x
@@ -87,7 +88,7 @@ class HOR(SES) :
 	def select_update_assgn(self) : #line 9-14
 		for i in range(len(self.M)):
 
-			self.status_log(self.S)
+			self.status_log(self.S,verbose=self.verbose)
 
 			if(len(self.S) >= self.k):
 				break
@@ -130,7 +131,7 @@ class HOR(SES) :
 
 		while(len(self.S)<self.k):
 
-			self.status_log()
+			self.status_log(verbose=self.verbose)
 
 			self.generate_assignment()
 

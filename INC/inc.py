@@ -1,7 +1,7 @@
 #------------------------------------IMPORT LIBRARIES--------------------------------------------
 import sys
 sys.path.insert(0, '../imports')
-from imports import Assignment
+from imports import Assignment, printer
 
 from imports import List_timeInt
 sys.path.insert(0,'../INC')
@@ -19,7 +19,7 @@ from operator import attrgetter
 
 class INC:
 
-	def __init__(self,k = 0, U = [], E = [], T = [], location = [] ,social_active_probabilities = [],event_attendance_probability = [] ,competing_event_attendance_probability = []):
+	def __init__(self,k = 0, U = [], E = [], T = [], location = [] ,social_active_probabilities = [],event_attendance_probability = [] ,competing_event_attendance_probability = [],verbose=True):
 		
 		self.k = k
 		self.U = U
@@ -38,6 +38,7 @@ class INC:
 		self.L_i = [List_timeInt(i) for i in self.T]
 		self.M = [Assignment() for i in self.T]
 		self.bound = Assignment()
+		self.verbose=verbose
 
 	#-------------------GENERATE ASSIGNMENT LIST-------------------------------
 	
@@ -211,7 +212,7 @@ class INC:
 
 
 			if self.L_i[i].update==False and self.M[i].score<=self.bound.score:
-				#print(i)
+				#printer(i)
 
 				j = 0
 				while j < len(self.L_i[i].l) :
@@ -244,19 +245,19 @@ class INC:
 
 		for i in range(len(self.M)):
 			#max = Assignment()
-			print("M[i] = ", self.print_assignment(self.M[i]))
+			printer(("M[i] = ", self.printer_assignment(self.M[i])),verbose=self.verbose)
 
 
 			for j in range(len(self.L_i[i].l)):
 
-				print("L_i.l= ",self.print_assignment(self.L_i[i].l[j]) )
+				printer(("L_i.l= ",self.printer_assignment(self.L_i[i].l[j]) ),verbose=self.verbose)
 
 				if self.L_i[i].l[j].valid == True and self.L_i[i].l[j].update == True :
 
 					self.M[i] = self.getBetterAssignment(self.M[i],self.L_i[i].l[j])
 
 					
-		self.print_updated_assignments(update_assignment_list)
+		self.printer_updated_assignments(update_assignment_list)
 
 	#-----------------------------------------------------------------------
 
@@ -297,7 +298,7 @@ class INC:
 		for i in range(self.k) :	
 			top_assignment = self.get_top_assignment(self.M)
 
-			print("top_assignment: ",self.E[top_assignment.event], self.T[top_assignment.time_interval])
+			printer(("top_assignment: ",self.E[top_assignment.event], self.T[top_assignment.time_interval]),verbose=self.verbose)
 
 			self.update_validity(top_assignment)
 			#self.status_log(self.A)
@@ -313,7 +314,7 @@ class INC:
 			
 			self.bound = self.get_bound()
 
-			print("                       status_log 1                         ")
+			printer(("                       status_log 1                         "),verbose=self.verbose)
 			self.status_log(self.A)
 			
 
@@ -321,10 +322,10 @@ class INC:
 
 			self.update_assignments(top_assignment)
 			
-			print("                       status_log 2                         ")
+			printer(("                       status_log 2                         "),verbose=self.verbose)
 			self.status_log(self.A)
 
-			#self.print_updated_assignments()
+			#self.printer_updated_assignments()
 
 
 	#----------------------------------------------------------------
@@ -332,34 +333,34 @@ class INC:
 	#--------------------------------------------------------DISPLAY----------------------------------------------
 	def status_log(self,assignment_list) :
 
-		print()
-		print()
-		print("-------------------------------------------------------------")
+		printer("\n",verbose=self.verbose)
+		printer("\n",verbose=self.verbose)
+		printer("-------------------------------------------------------------",verbose=self.verbose)
 
-		print("Event  Time Interval  Score  Location  Validity")
+		printer("Event  Time Interval  Score  Location  Validity",verbose=self.verbose)
 
 		for i in assignment_list :
 
 			if len(str(i.score)) >= 5 :
 
-				print(self.E[i.event], '   ', self.T[i.time_interval], '           ', '{:.5}'.format(str(i.score)), '', '{:7}'.format(i.location), ' ', i.valid)
+				printer((self.E[i.event], '   ', self.T[i.time_interval], '           ', '{:.5}'.format(str(i.score)), '', '{:7}'.format(i.location), ' ', i.valid),verbose=self.verbose)
 
 			else :
-				print(self.E[i.event], '   ', self.T[i.time_interval], '           ', '{:5}'.format(str(i.score)), '', '{:7}'.format(i.location), ' ', i.valid)
+				printer((self.E[i.event], '   ', self.T[i.time_interval], '           ', '{:5}'.format(str(i.score)), '', '{:7}'.format(i.location), ' ', i.valid),verbose=self.verbose)
 
 
-		print("Bound: ",self.print_assignment(self.bound), " ", self.bound.score)
+		printer(("Bound: ",self.printer_assignment(self.bound), " ", self.bound.score),verbose=self.verbose)
 
-		print("M: ", list(map(self.print_assignment,self.M)),"\n")
-		print("L_1: ",list(map(self.print_assignment,self.L_i[0].l))," update: ",self.L_i[0].update)
-		print("L_2: ", list(map(self.print_assignment,self.L_i[1].l))," update: ",self.L_i[1].update,"\n")
+		printer(("M: ", list(map(self.printer_assignment,self.M)),"\n"),verbose=self.verbose)
+		printer(("L_1: ",list(map(self.printer_assignment,self.L_i[0].l))," update: ",self.L_i[0].update),verbose=self.verbose)
+		printer(("L_2: ", list(map(self.printer_assignment,self.L_i[1].l))," update: ",self.L_i[1].update,"\n"),verbose=self.verbose)
 
 
-		print("--------------------------------------------------------------")
-		print()
-		print()
+		printer(("--------------------------------------------------------------"),verbose=self.verbose)
+		printer("\n",verbose=self.verbose)
+		printer("\n",verbose=self.verbose)
 
-	def print_assignment(self,assignment):
+	def printer_assignment(self,assignment):
 
 		if assignment.event == '' :
 			return str(assignment.time_interval + "_a_" + assignment.event)
@@ -367,15 +368,15 @@ class INC:
 		return str(self.T[assignment.time_interval] + "_a_" + self.E[assignment.event])
 
 
-	def print_updated_assignments(self,UA_list):
+	def printer_updated_assignments(self,UA_list):
 
-		print("Updated Assignments:  ",end = ' ')
+		printer("Updated Assignments:  ",end = ' ',verbose=self.verbose)
 
 		for j in UA_list :
 			if j.update :
-				print(self.print_assignment(j),end = "  ")
+				printer(self.printer_assignment(j),end = "  ",verbose=self.verbose)
 
-		print("\n\n")
+		printer("\n\n",verbose=self.verbose)
 		
 
 	#----------------------------------------------------------------------------------------------------------------

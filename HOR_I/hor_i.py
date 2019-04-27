@@ -23,9 +23,10 @@ from operator import attrgetter
 
 class HOR_I(HOR) :
 
-	def __init__(self,k = 0, U = [], E = [], T = [], location = [] ,social_active_probabilities = [],event_attendance_probability = [] ,competing_event_attendance_probability = []):
+	def __init__(self,k = 0, U = [], E = [], T = [], location = [] ,social_active_probabilities = [],event_attendance_probability = [] ,competing_event_attendance_probability = [],verbose=True):
 		
 		super().__init__(k , U , E , T , location  ,social_active_probabilities ,event_attendance_probability ,competing_event_attendance_probability )
+		self.verbose=verbose
 
 	
 #-------------------------------------ALGORITHM---------------------------
@@ -78,7 +79,7 @@ class HOR_I(HOR) :
 	def select_update_assgn(self): # line 21-30. reuse code of self.inc_assgnmnt_update() in place of 29
 		for i in range(len(self.M)):
 
-			self.status_log(self.S)
+			self.status_log(self.S,verbose=self.verbose)
 
 			if(len(self.S) >= self.k):
 				break

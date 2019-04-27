@@ -5,6 +5,7 @@ import os
 from measure_time import measureGRE, measureINC, measureHOR, measureHOR_I
 import math
 
+
 #importing from other folders
 
 
@@ -13,7 +14,7 @@ def generator(n):
 
 	u=0
 	e=0
-	t=0
+	t=1
 	l=0
 
 	K=0
@@ -35,6 +36,7 @@ def generator(n):
 	t_inc=[]
 	t_hor=[]
 	t_hor_i=[]
+	e_list=[]
 	pperc=0
 	while e<=n:
 
@@ -66,25 +68,25 @@ def generator(n):
 
 		for k in range(len(sigma)):
 			for i in range(len(sigma[k]),len(T)):
-				sigma[k].append(round(random.uniform(0,1),1))
+				sigma[k].append(round(random.uniform(0.1,1),1))
 
 		for k in range(len(mu_C)):
 			for i in range(len(mu_C[k]),len(T)):
-				mu_C[k].append(round(random.uniform(0,1),1)) 
+				mu_C[k].append(round(random.uniform(0.1,1),1)) 
 
 		for k in range(len(mu_E)):
 			for i in range(len(mu_E[k]),len(E)):
-				mu_E[k].append(round(random.uniform(0,1),1))
+				mu_E[k].append(round(random.uniform(0.1,1),1))
 				
 
 		for i in range(len(sigma),len(U)):
-			sigma.append([round(random.uniform(0,1),1) for k in range(len(T))])
+			sigma.append([round(random.uniform(0.1,1),1) for k in range(len(T))])
 
 		for i in range(len(mu_C),len(U)):
-			mu_C.append([round(random.uniform(0,1),1) for k in range(len(T))])
+			mu_C.append([round(random.uniform(0.1,1),1) for k in range(len(T))])
 
 		for i in range(len(mu_E),len(U)):
-			mu_E.append([round(random.uniform(0,1),1) for k in range(len(E))])
+			mu_E.append([round(random.uniform(0.1,1),1) for k in range(len(E))])
 		
 
 
@@ -96,11 +98,11 @@ def generator(n):
 		#print("Sigma:", sigma)
 		#print("mu_E:", mu_E)
 		#print("mu_C:", mu_C)
-
-		t_gre.append(measureGRE(K,U,E,T,L,sigma,mu_E,mu_C))
-		t_inc.append(measureINC(K,U,E,T,L,sigma,mu_E,mu_C))
-		t_hor.append(measureHOR(K,U,E,T,L,sigma,mu_E,mu_C))
-		t_hor_i.append(measureHOR_I(K,U,E,T,L,sigma,mu_E,mu_C))
+		e_list.append(e)
+		t_gre.append(measureGRE(K,U,E,T,L,sigma,mu_E,mu_C,False))
+		t_inc.append(measureINC(K,U,E,T,L,sigma,mu_E,mu_C,False))
+		t_hor.append(measureHOR(K,U,E,T,L,sigma,mu_E,mu_C,False))
+		t_hor_i.append(measureHOR_I(K,U,E,T,L,sigma,mu_E,mu_C,False))
 
 		#print("---------------------------------------------------------")
 
@@ -108,10 +110,10 @@ def generator(n):
 
 		while pperc!=perc:
 			pperc+=1
-			printer("█", end='')
+			print("█", end='',flush=True)
 
 	inputs={
-		"No of events:":E,
+		"No of events:":e_list,
 		"Greedy:":t_gre,
 		"INC:":t_inc,
 		"HOR:": t_hor,
@@ -121,11 +123,12 @@ def generator(n):
 	while os.path.exists("data_%s.csv" % f):
 	 		f+=1
 	fname="data_"+str(f)+".csv"
-	sampler.T.to_csv(fname)
+	sampler.to_csv(fname, index=False)
 		
 		
-	print("File written: ")
+	print("\nFile written: ")
 	print(fname, end=' ')
+	
 	
 		
 

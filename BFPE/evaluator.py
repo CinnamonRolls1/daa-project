@@ -14,13 +14,13 @@ sys.path.insert(0, '../Greedy')
 from greedy import GRE
 
 sys.path.insert(0,'../HOR_I')
-from HOR_I_Template import HOR_I
+from hor_i import HOR_I
 
 sys.path.insert(0, '../BFPE')
 
 
 
-'''
+
 K=3
 U = ['u1','u2']
 S = []
@@ -32,7 +32,7 @@ L = ['Stage 1', 'Stage 1', 'Stage 2', 'Room A']
 Sigma = [[0.8, 0.5],[0.5, 0.7]]
 mu_E = [[0.9, 0.3, 0, 0.6],[0.2, 0.6, 0.1, 0.6]]
 mu_C = [[0.8, 0.3],[0.4, 0.7]]
-'''
+
 '''
 K=3
 U= ['u0', 'u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u8', 'u9', 'u10', 'u11']

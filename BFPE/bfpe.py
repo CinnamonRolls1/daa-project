@@ -5,6 +5,8 @@ import os
 from measure_time import measureGRE, measureINC, measureHOR, measureHOR_I
 import math
 import seaborn as sns
+import matplotlib.pyplot as plt
+from imports import printer
 
 
 #importing from other folders
@@ -117,8 +119,8 @@ def generator(n):
 	inputs={
 		"No of events":e_list,
 		"GRE":t_gre,
-		"INC":t_inc,
-		"HOR": t_hor,
+		"HOR":t_hor,
+		"INC": t_inc,
 		"HOR_I": t_hor_i,
 	}
 	sampler=pd.DataFrame({key:pd.Series(value) for key, value in inputs.items()})
@@ -132,10 +134,10 @@ def generator(n):
 	print(fname, end=' ')
 	
 
-	df_GRE=sampler['No of events','GRE']
-	df_INC=sampler['No of events','INC']
-	df_HOR=sampler['No of events','HOR']
-	df_HOR_I=sampler['No of events','HOR_I']
+	df_GRE=sampler[['No of events','GRE']]
+	df_INC=sampler[['No of events','INC']]
+	df_HOR=sampler[['No of events','HOR']]
+	df_HOR_I=sampler[['No of events','HOR_I']]
 
 
 	print("Graphing...")
@@ -154,7 +156,7 @@ def generator(n):
 	printer("████████████████████", end='')
 
 	sns.set(style='whitegrid', font='Calibri',palette='Greens_r')
-	INCplot=sns.lineplot(x='No of events',y='GRE', data=df_INC)
+	INCplot=sns.lineplot(x='No of events',y='INC', data=df_INC)
 
 
 	INCplot.set_title('INC')
@@ -165,7 +167,7 @@ def generator(n):
 	printer("████████████████████", end='')
 
 	sns.set(style='whitegrid', font='Calibri',palette='Blues_r')
-	HORplot=sns.lineplot(x='No of events',y='GRE', data=df_HOR)
+	HORplot=sns.lineplot(x='No of events',y='HOR', data=df_HOR)
 
 
 	HORplot.set_title('HOR')
@@ -176,15 +178,25 @@ def generator(n):
 	printer("████████████████████", end='')
 
 	sns.set(style='whitegrid', font='Calibri',palette='cubehelix')
-	HOR_Iplot=sns.lineplot(x='No of events',y='GRE', data=df_HOR_I)
+	HOR_Iplot=sns.lineplot(x='No of events',y='HOR_I', data=df_HOR_I)
 
 
 	HOR_Iplot.set_title('HOR_I')
-	HOR_Ifig=HOR_plot.get_figure()
+	HOR_Ifig=HOR_Iplot.get_figure()
 	HOR_Ifig.savefig('HOR_I.png')
 	plt.clf()
 
 	printer("████████████████████", end='')
+
+	melted=pd.melt(sampler,id_vars="No of events", value_name='time',var_name='Algorithms')
+	allplot=sns.lineplot(x='No of events',y='time', hue='Algorithms', style='Algorithms', data=melted)
+	sns.set(style='whitegrid', font='Calibri',palette='cubehelix')
+	allfig=allplot.get_figure()
+	allfig.savefig('all.png')
+	plt.clf()
+
+	printer("████████████████████", end='')
+
 
 
 		

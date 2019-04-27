@@ -5,9 +5,9 @@ sys.path.insert(0, '../imports')
 from imports import Assignment
 
 from imports import List_timeInt
+
 sys.path.insert(0,'../HOR')
 from hor import HOR
-
 sys.path.insert(0,'../HOR_I')
 
 from itertools import product
@@ -42,7 +42,8 @@ class HOR_I(HOR) :
 					self.inc_assgnmnt_update(i) 
 
 
-			self.select_update_assgn()
+			if self.select_update_assgn() == None :
+				return self.S
 		return self.S
 
 
@@ -58,16 +59,16 @@ class HOR_I(HOR) :
 		
 		self.bound.score=0     #Initializing bound as 0
 		j=0
-		while j < len(self.L_i[time_interval].l):  #For all assignments residing in L_i[i]
-			if self.L_i[time_interval].l[j].valid==True:
-				if self.L_i[time_interval].l[j].score >= self.bound.score:
-					self.update_score(self.L_i[time_interval].l[j],top_assignment)
-					self.L_i[time_interval].l[j].update == True
-					self.bound = self.getBetterAssignment(self.bound,self.L_i[time_interval].l[j])
+		while j < len(self.L_i[time_interval]):  #For all assignments residing in L_i[i]
+			if self.L_i[time_interval][j].valid==True:
+				if self.L_i[time_interval][j].score >= self.bound.score:
+					self.update_score(self.L_i[time_interval][j],top_assignment)
+					self.L_i[time_interval][j].update == True
+					self.bound = self.getBetterAssignment(self.bound,self.L_i[time_interval][j])
 				else:
-					self.L_i[time_interval].l[j].update == False
+					self.L_i[time_interval][j].update == False
 			else:
-				self.L_i[time_interval].l.pop(j)
+				self.L_i[time_interval].pop(j)
 			j=j+1
 		self.M[time_interval]=self.bound
 		
@@ -83,6 +84,9 @@ class HOR_I(HOR) :
 				break
 
 			ass=self.popTopAssgn()
+
+			if ass == None :
+				return None
 
 			eve=[i.event for i in self.S]
 			eve=list(filter(lambda z : z!=None,eve))
@@ -106,13 +110,16 @@ class HOR_I(HOR) :
 				if(tp== None and self.valid(ass)):
 					self.inc_assgnmnt_update(tp.time_interval)
 
+		return 1
+
 	
-obj=HOR_I()
+'''obj=HOR_I()
 s=obj.hor_i__algo()
 def result(ob):	
 	for i in ob.S:
 		#print("DAFS")
 		print("event","\t\t","time_interval","\t\t","location")
-		print(i.event,"\t\t",i.time_interval,"\t\t",i.location)
+		print(i.event,"\t\t",i.time_interval,"\t\t",i.location)'''
+
 
 

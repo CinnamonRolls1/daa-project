@@ -2,19 +2,12 @@ import sys
 import random
 import pandas as pd
 import os
+from measure_time import measureGRE, measureINC, measureHOR, measureHOR_I
+import math
 
 #importing from other folders
 
-sys.path.insert(0, '../INC')
-from inc import INC
 
-sys.path.insert(0, '../HOR')
-from hor import HOR
-
-sys.path.insert(0, '../Greedy')
-from greedy import GRE
-
-sys.path.insert(0, '../BFPE')
 
 def generator(n):
 
@@ -38,6 +31,11 @@ def generator(n):
 	li=0
 	f=0
 	fnames=[]
+	t_gre=[]
+	t_inc=[]
+	t_hor=[]
+	t_hor_i=[]
+	pperc=0
 	while e<=n:
 
 		u+=random.randint(1,4) #u should preferably grow fastest
@@ -90,42 +88,44 @@ def generator(n):
 		
 
 
-		print("K:",K)
-		print("U:",U)
-		print("E:",E)
-		print("T:",T)
-		print("L:",L)
-		print("Sigma:", sigma)
-		print("mu_E:", mu_E)
-		print("mu_C:", mu_C)
+		#print("K:",K)
+		#print("U:",U)
+		#print("E:",E)
+		#print("T:",T)
+		#print("L:",L)
+		#print("Sigma:", sigma)
+		#print("mu_E:", mu_E)
+		#print("mu_C:", mu_C)
 
-		inputs={
-			"K:":K,
-			"U:":U,
-			"E:":E,
-			"T:":T,
-			"L:":L,
-			"Sigma:": sigma,
-			"mu_E:": mu_E,
-			"mu_C:": mu_C
-		}
-		sampler=pd.DataFrame({key:pd.Series(value) for key, value in inputs.items()})
-		while os.path.exists("inputs_%s.csv" % f):
-		 		f+=1
-		fname="inputs_"+str(f)+".csv"
-		sampler.T.to_csv(fname)
-		fnames.append(fname)
+		t_gre.append(measureGRE(K,U,E,T,L,sigma,mu_E,mu_C))
+		t_inc.append(measureINC(K,U,E,T,L,sigma,mu_E,mu_C))
+		t_hor.append(measureHOR(K,U,E,T,L,sigma,mu_E,mu_C))
+		t_hor_i.append(measureHOR_I(K,U,E,T,L,sigma,mu_E,mu_C))
 
+		#print("---------------------------------------------------------")
 
-		#gre_object = GRE(U, E , T , L ,sigma,mu_E,mu_C)
+		perc=math.ceil((e/n)*100)
 
-		#inc_object.generate_assignment()
-		#gre_object.greedy_alg(K)
-		print("---------------------------------------------------------")
+		while pperc!=perc:
+			pperc+=1
+			printer("█", end='')
+
+	inputs={
+		"No of events:":E,
+		"Greedy:":t_gre,
+		"INC:":t_inc,
+		"HOR:": t_hor,
+		"HOR_I:": t_hor_i,
+	}
+	sampler=pd.DataFrame({key:pd.Series(value) for key, value in inputs.items()})
+	while os.path.exists("data_%s.csv" % f):
+	 		f+=1
+	fname="data_"+str(f)+".csv"
+	sampler.T.to_csv(fname)
 		
-	print("Files written: ")
-	for name in fnames:
-		print(name, end=' ')
+		
+	print("File written: ")
+	print(fname, end=' ')
 	
 		
 

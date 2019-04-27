@@ -169,7 +169,8 @@ class GRE:
 
 
                         best_assignment=self.select_assignment()
-
+                        print(best_assignment)
+                        print("Selection:", best_assignment.event,' ', best_assignment.time_interval, ' ', best_assignment.score)
                         print("Selection:", self.E[best_assignment.event],' ', self.T[best_assignment.time_interval], ' ', best_assignment.score)
                         self.S.append(best_assignment)
 
@@ -186,6 +187,7 @@ class GRE:
         def select_assignment(self):
 
                 max_assignment = Assignment()
+                max_assignment.score = float('-inf')
 
                 for i in self.A :
 

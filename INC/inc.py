@@ -266,6 +266,7 @@ class INC:
 
 	def get_top_assignment(self,array=None): # line 7 '(similar to select_assignment()' from greedy.py)
 		max_assignment = Assignment()
+		max_assignment.score = float('-inf')
 
 		if array == None:
 			array=self.A

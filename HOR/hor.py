@@ -76,7 +76,9 @@ class HOR(SES) :
 			elif((top == None) or (top.score < self.M[i].score)):
 				top=self.M[i]
 				index=i
-		self.M[index] = Assignment()
+
+		if index != None :
+			self.M[index] = Assignment()
 
 		return top
 
